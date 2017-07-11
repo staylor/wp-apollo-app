@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "./node_modules/kyt/config/.eslintrc.base.json",
+    "prettier"
+  ],
+
+  "parser": "babel-eslint",
+
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
+
+  "env": {
+  },
+
+  "plugins": [
+    "prettier"
+  ],
+
+  "rules": {
+    "no-underscore-dangle": ["error", { "allow": ["__typename"] } ],
+    "prettier/prettier": ["error", {
+      "trailingComma": "es5",
+      "semi": true,
+      "singleQuote": true,
+      "printWidth": 100
+    }]
+  }
+}

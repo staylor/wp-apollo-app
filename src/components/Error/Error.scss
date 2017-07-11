@@ -1,0 +1,6 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.title {
+  @include h1;
+}
