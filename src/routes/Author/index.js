@@ -31,6 +31,7 @@ export default class Author extends Component {
   static propTypes = {
     data: PropTypes.shape({
       fetchMore: PropTypes.func,
+      variables: PropTypes.object,
       viewer: PropTypes.shape({
         author: PropTypes.object,
         posts: PropTypes.object,
@@ -46,14 +47,14 @@ export default class Author extends Component {
       return <Loading />;
     }
 
-    const { fetchMore, viewer: { author, posts } } = this.props.data;
+    const { variables, fetchMore, viewer: { author, posts } } = this.props.data;
     return (
       <div className={styles.sections}>
         <section>
           <h2 className={styles.header}>
             {author.name}
           </h2>
-          <Archive {...{ posts, fetchMore }} />
+          <Archive {...{ posts, fetchMore, variables }} />
         </section>
       </div>
     );

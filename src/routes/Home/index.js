@@ -65,7 +65,9 @@ export default class Home extends Component {
       return <Loading />;
     }
 
-    const { viewer: { readThis, watchThis, listenToThis, stickies } } = this.props.data;
+    const {
+      viewer: { readThis, watchThis, listenToThis, stickies },
+    } = this.props.data;
 
     return (
       <div className={styles.columns}>

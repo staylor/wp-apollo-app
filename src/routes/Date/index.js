@@ -43,6 +43,7 @@ export default class DateRoute extends Component {
   static propTypes = {
     data: PropTypes.shape({
       fetchMore: PropTypes.func,
+      variables: PropTypes.object,
       viewer: PropTypes.shape({
         posts: PropTypes.object,
       }),
@@ -59,8 +60,10 @@ export default class DateRoute extends Component {
       return <Loading />;
     }
 
-    const { fetchMore, viewer: { posts } } = this.props.data;
-    const values = [params.month, params.day, params.year].filter(value => value);
+    const { variables, fetchMore, viewer: { posts } } = this.props.data;
+    const values = [params.month, params.day, params.year].filter(
+      value => value
+    );
     const path = values.join('/');
     const title = `Archives: ${path}`;
 
@@ -76,7 +79,7 @@ export default class DateRoute extends Component {
           <h2 className={styles.label}>
             {title}
           </h2>
-          <Archive {...{ posts, fetchMore }} />
+          <Archive {...{ posts, fetchMore, variables }} />
         </section>
       </div>
     );

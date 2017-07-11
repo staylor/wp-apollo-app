@@ -47,6 +47,7 @@ export default class Term extends Component {
   static propTypes = {
     data: PropTypes.shape({
       fetchMore: PropTypes.func,
+      variables: PropTypes.object,
       viewer: PropTypes.shape({
         term: PropTypes.object,
         posts: PropTypes.object,
@@ -66,7 +67,7 @@ export default class Term extends Component {
       return <Loading />;
     }
 
-    const { fetchMore, viewer: { term, posts } } = this.props.data;
+    const { variables, fetchMore, viewer: { term, posts } } = this.props.data;
 
     const title = `${term.taxonomy.labels.singular}: ${term.name}`;
     const url = `${SITE_URL}/${term.taxonomy.rewrite.slug}/${term.slug}`;
@@ -86,7 +87,7 @@ export default class Term extends Component {
             <h2 className={styles.label}>
               {title}
             </h2>
-            <Archive {...{ posts, fetchMore }} />
+            <Archive {...{ posts, fetchMore, variables }} />
           </section>}
       </div>
     );

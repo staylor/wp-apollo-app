@@ -97,7 +97,10 @@ export default class Search extends Component {
           {showPosts && <Archive posts={posts} fetchMore={fetchMore} />}
           {showPosts &&
             posts.pageInfo.hasNextPage &&
-            <button className={styles.button} onClick={() => this.loadMore(refetch)}>
+            <button
+              className={styles.button}
+              onClick={() => this.loadMore(refetch)}
+            >
               MORE
             </button>}
         </section>
