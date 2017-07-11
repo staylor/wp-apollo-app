@@ -28,7 +28,6 @@ export default class Search extends Component {
   static propTypes = {
     data: PropTypes.shape({
       viewer: PropTypes.shape({
-        tag: PropTypes.object,
         posts: PropTypes.object,
       }),
       variables: PropTypes.object,
