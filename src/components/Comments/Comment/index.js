@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import md5 from 'md5';
-import { gql } from 'react-apollo';
 import { withCookies, Cookies } from 'react-cookie';
 import { intlShape } from 'react-intl';
 import withIntl from 'decorators/withIntl';
 import DeleteCommentMutation from 'mutations/DeleteComment';
+import { Comment as CommentFragments } from 'fragments/Comments';
 import EditComment from './Edit';
 import { AUTHOR_EMAIL_COOKIE } from '../constants';
 import { CommentType } from '../types';
@@ -145,24 +145,4 @@ export default class Comment extends Component {
   }
 }
 
-Comment.fragments = {
-  comment: gql`
-    fragment Comment_comment on Comment {
-      id
-      author_name
-      author_url
-      author_hash
-      date
-      content {
-        rendered
-        raw
-      }
-      author_avatar_urls {
-        size
-        url
-      }
-      parent
-      post
-    }
-  `,
-};
+Comment.fragments = CommentFragments;

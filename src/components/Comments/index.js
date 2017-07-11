@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { gql } from 'react-apollo';
+import CommentsFragments from 'fragments/Comments';
 import Walker from './Walker';
 import { CommentConnectionType } from './types';
 import styles from './Comments.scss';
@@ -14,17 +14,13 @@ export default function Comments({ post, comments }) {
   );
 }
 
-Comments.fragments = {
-  comments: gql`
-    fragment Comments_comments on CommentConnection {
-      ...Walker_comments
-    }
-    ${Walker.fragments.comments}
-  `,
-};
+Comments.fragments = CommentsFragments;
 
 Comments.propTypes = {
-  post: PropTypes.string.isRequired,
+  post: PropTypes.shape({
+    id: PropTypes.string,
+    slug: PropTypes.string,
+  }).isRequired,
   comments: CommentConnectionType,
 };
 

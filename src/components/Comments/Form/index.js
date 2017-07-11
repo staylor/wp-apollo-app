@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
-import AddCommentMutation from 'mutations/AddComment';
-import {
-  AUTHOR_NAME_COOKIE,
-  AUTHOR_EMAIL_COOKIE,
-  AUTHOR_URL_COOKIE,
-} from 'components/Comments/constants';
+import { graphql, gql } from 'react-apollo';
+import md5 from 'md5';
+import SingleQuery from 'queries/Single';
+import { newlineRegex } from 'utils/regex';
+import { AUTHOR_NAME_COOKIE, AUTHOR_EMAIL_COOKIE, AUTHOR_URL_COOKIE } from '../constants';
+import Comment from '../Comment';
 import styles from './Form.scss';
 
 const fields = {
@@ -27,13 +27,29 @@ const getDefaultState = props => {
   return state;
 };
 
+@graphql(gql`
+  mutation AddComment_Mutation($input: AddCommentInput!) {
+    addComment(input: $input) {
+      comment {
+        ...Comment_comment
+      }
+      cookies
+      status
+    }
+  }
+  ${Comment.fragments.comment}
+`)
 @withCookies
 export default class Form extends Component {
   static propTypes = {
     cookies: PropTypes.instanceOf(Cookies).isRequired,
-    post: PropTypes.string.isRequired,
+    post: PropTypes.shape({
+      id: PropTypes.string,
+      slug: PropTypes.string,
+    }).isRequired,
     replyTo: PropTypes.string,
     setReplyTo: PropTypes.func.isRequired,
+    mutate: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -55,7 +71,7 @@ export default class Form extends Component {
     const variables = {
       input: {
         ...this.state.comment,
-        post: this.props.post,
+        post: this.props.post.id,
       },
     };
 
@@ -63,11 +79,71 @@ export default class Form extends Component {
       variables.input.parent = this.props.replyTo;
     }
 
-    AddCommentMutation.commit(this.context.relay.environment, variables, () => {
-      this.setState({
-        comment: getDefaultState(this.props),
+    const optimisticResponse = {
+      __typename: 'Mutation',
+      addComment: {
+        __typename: 'AddCommentPayload',
+        comment: {
+          __typename: 'Comment',
+          id: '',
+          author_name: variables.input.author_name,
+          author_email: variables.input.author_email,
+          author_url: variables.input.author_url,
+          author_hash: '',
+          date: new Date().toISOString(),
+          content: {
+            __typename: 'Content',
+            raw: variables.input.content,
+            rendered: `<p>${variables.input.content.replace(newlineRegex, '<br />')}</p>`,
+          },
+          author_avatar_urls: [
+            {
+              __typename: 'Avatar',
+              size: 48,
+              url: `http://2.gravatar.com/avatar/${md5(
+                variables.input.author_email
+              )}?s=48&d=mm&r=g`,
+            },
+          ],
+          post: this.props.post.id,
+          parent: variables.input.parent || null,
+        },
+        status: 'new',
+        cookies: '',
+      },
+    };
+
+    const queryVars = {
+      query: SingleQuery,
+      variables: {
+        // emoji and unicode get encoded
+        slug: decodeURIComponent(this.props.post.slug),
+        commentCount: 100,
+      },
+    };
+
+    this.props
+      .mutate({
+        variables,
+        optimisticResponse,
+        refetchQueries: [{ ...queryVars }],
+        update: (store, { data: { addComment } }) => {
+          const data = store.readQuery({ ...queryVars });
+          data.viewer.post.comments.edges.push({
+            __typename: 'CommentEdge',
+            node: {
+              __typename: 'Comment',
+              ...addComment.comment,
+            },
+          });
+          store.writeQuery({ ...queryVars, data });
+        },
+      })
+      .then(() => {
+        this.setState({
+          comment: getDefaultState(this.props),
+        });
       });
-    });
   };
 
   onChange = e => {

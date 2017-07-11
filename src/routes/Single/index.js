@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { graphql, gql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { Link } from 'found';
 import { FormattedRelative } from 'react-intl';
 import Media from 'components/Media';
 import Comments from 'components/Comments';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import SingleQuery from 'queries/Single';
 import { convertPlaceholders } from 'utils';
 import { dateRegex } from 'utils/regex';
 import { SITE_URL } from 'utils/constants';
@@ -15,51 +16,14 @@ import styles from './Single.scss';
 
 /* eslint-disable react/no-danger */
 
-@graphql(
-  gql`
-    query Single_Query($slug: String!, $commentCount: Int) {
-      viewer {
-        post(slug: $slug) {
-          id
-          date
-          title {
-            rendered
-          }
-          content {
-            rendered
-          }
-          excerpt {
-            raw
-          }
-          featuredMedia {
-            ...Media_media
-            ... on Image {
-              source_url
-            }
-          }
-          tags {
-            id
-            name
-            slug
-          }
-          comments(slug: $slug, first: $commentCount) {
-            ...Comments_comments
-          }
-        }
-      }
-    }
-    ${Media.fragments.media}
-    ${Comments.fragments.comments}
-  `,
-  {
-    options: ({ params: { slug } }) => ({
-      variables: {
-        slug,
-        commentCount: 100,
-      },
-    }),
-  }
-)
+@graphql(SingleQuery, {
+  options: ({ params: { slug } }) => ({
+    variables: {
+      slug,
+      commentCount: 100,
+    },
+  }),
+})
 export default class Single extends Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -150,18 +114,13 @@ export default class Single extends Component {
           <meta property="og:title" content={title} />
           <meta property="og:url" content={url} />
           <meta property="og:description" content={excerpt} />
-          {featuredImage &&
-            <meta property="og:image" content={featuredImage} />}
+          {featuredImage && <meta property="og:image" content={featuredImage} />}
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={excerpt} />
-          {featuredImage &&
-            <meta name="twitter:image" content={featuredImage} />}
+          {featuredImage && <meta name="twitter:image" content={featuredImage} />}
         </Helmet>
         <header>
-          <h1
-            className={styles.title}
-            dangerouslySetInnerHTML={{ __html: title }}
-          />
+          <h1 className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
           <div className={styles.meta}>
             Posted:{' '}
             <Link to={`/${year}/${month}`}>
@@ -188,7 +147,7 @@ export default class Single extends Component {
               </Link>
             )}
           </footer>}
-        <Comments post={id} comments={comments} />
+        <Comments post={{ id, slug }} comments={comments} />
       </article>
     );
   }
