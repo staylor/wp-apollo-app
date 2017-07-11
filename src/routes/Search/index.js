@@ -6,14 +6,14 @@ import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import { SITE_URL } from 'utils/constants';
-import SearchBox from './Box';
+import debounce from 'debounce';
 import styles from './Search.scss';
 
 @graphql(
   gql`
-  query Search_Query($search: String, $count: Int) {
+  query Search_Query($search: String, $count: Int, $cursor: String) {
     viewer {
-      posts(search: $search, first: $count) {
+      posts(search: $search, first: $count, after: $cursor) {
         ...Archive_posts
       }
     }
@@ -31,55 +31,62 @@ export default class Search extends Component {
         tag: PropTypes.object,
         posts: PropTypes.object,
       }),
+      variables: PropTypes.object,
       refetch: PropTypes.func,
       fetchMore: PropTypes.func,
     }).isRequired,
   };
 
+  input = null;
+
   state = {
-    fetching: false,
+    term: '',
   };
 
-  term = null;
-  count = 10;
-
-  loadMore(refetch) {
-    this.count += 10;
-    refetch(
-      {
-        search: this.term,
-        count: this.count,
-      },
-      null,
-      e => {
+  doRefetch = debounce(() => {
+    this.props.data
+      .refetch({
+        ...this.props.data.variables,
+        search: this.state.term,
+      })
+      .catch(e => {
         if (e) {
           // eslint-disable-next-line no-console
           console.log(e);
         }
-      }
-    );
-  }
+      })
+      .then(() => {
+        this.input.blur();
+      });
+  }, 600);
 
-  onSetTerm(term) {
-    this.setState({ fetching: true });
-    this.count = 10;
-    this.term = term;
-  }
-
-  onRefetch() {
-    this.setState({ fetching: false });
-  }
+  onChange = e => {
+    this.setState({
+      term: e.target.value,
+    });
+    this.doRefetch();
+  };
 
   render() {
-    const { data: { loading, error } } = this.props;
+    const {
+      data: { loading, error, variables, fetchMore, viewer },
+    } = this.props;
     if (error) {
       return <Error />;
-    } else if (loading) {
-      return <Loading />;
     }
 
-    const { refetch, fetchMore, viewer: { posts = null } } = this.props.data;
-    const showPosts = posts && !this.state.fetching;
+    const pageInfo = viewer && viewer.posts && viewer.posts.pageInfo;
+
+    let title = 'Search the Archive';
+    const searching = this.state.term && (loading || !pageInfo);
+
+    if (this.state.term) {
+      if (searching) {
+        title = `Searching the archive for “${this.state.term}”`;
+      } else {
+        title = `Search Results for “${this.state.term}”`;
+      }
+    }
 
     return (
       <div className={styles.sections}>
@@ -88,21 +95,32 @@ export default class Search extends Component {
           <link rel="canonical" href={`${SITE_URL}/search`} />
         </Helmet>
         <section>
-          <SearchBox
-            refetch={refetch}
-            pageInfo={posts && posts.pageInfo}
-            onSetTerm={term => this.onSetTerm(term)}
-            onRefetch={e => this.onRefetch(e)}
-          />
-          {showPosts && <Archive posts={posts} fetchMore={fetchMore} />}
-          {showPosts &&
-            posts.pageInfo.hasNextPage &&
-            <button
-              className={styles.button}
-              onClick={() => this.loadMore(refetch)}
-            >
-              MORE
-            </button>}
+          <section className={styles.box}>
+            <h2 className={styles.label}>
+              {title}
+            </h2>
+            <form>
+              <label className={styles.a11y} htmlFor="field-term">
+                Search Term
+              </label>
+              <input
+                ref={input => {
+                  this.input = input;
+                }}
+                className={styles.input}
+                type="search"
+                id="field-term"
+                name="term"
+                value={this.state.term}
+                onChange={this.onChange}
+              />
+            </form>
+            {searching && <Loading />}
+          </section>
+          {viewer &&
+            viewer.posts &&
+            !loading &&
+            <Archive {...{ variables, posts: viewer.posts, fetchMore }} />}
         </section>
       </div>
     );
