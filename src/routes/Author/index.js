@@ -10,19 +10,19 @@ import styles from './Author.scss';
 
 @graphql(
   gql`
-  query Author_Query($id: ID!) {
-    viewer {
-      author(id: $id) {
-        id
-        name
-      }
-      posts(author: $id, after: $cursor, first: $count) {
-        ...Archive_posts
+    query Author_Query($id: ID!) {
+      viewer {
+        author(id: $id) {
+          id
+          name
+        }
+        posts(author: $id, after: $cursor, first: $count) {
+          ...Archive_posts
+        }
       }
     }
-  }
-  ${Archive.fragments.posts}
-`,
+    ${Archive.fragments.posts}
+  `,
   {
     options: ({ params: { id } }) => ({ variables: { id } }),
   }

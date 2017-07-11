@@ -11,15 +11,15 @@ import styles from './Search.scss';
 
 @graphql(
   gql`
-  query Search_Query($search: String, $count: Int, $cursor: String) {
-    viewer {
-      posts(search: $search, first: $count, after: $cursor) {
-        ...Archive_posts
+    query Search_Query($search: String, $count: Int, $cursor: String) {
+      viewer {
+        posts(search: $search, first: $count, after: $cursor) {
+          ...Archive_posts
+        }
       }
     }
-  }
-  ${Archive.fragments.posts}
-`,
+    ${Archive.fragments.posts}
+  `,
   {
     options: { variables: { search: '', count: 10 } },
   }

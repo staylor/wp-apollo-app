@@ -10,29 +10,29 @@ import styles from './Term.scss';
 
 @graphql(
   gql`
-  query Term_Query($slug: String!, $taxonomy: String!, $cursor: String, $count: Int) {
-    viewer {
-      term(slug: $slug, taxonomy: $taxonomy) {
-        id
-        name
-        slug
-        taxonomy {
-          rewrite {
-            slug
-          }
-          labels {
-            singular
-            plural
+    query Term_Query($slug: String!, $taxonomy: String!, $cursor: String, $count: Int) {
+      viewer {
+        term(slug: $slug, taxonomy: $taxonomy) {
+          id
+          name
+          slug
+          taxonomy {
+            rewrite {
+              slug
+            }
+            labels {
+              singular
+              plural
+            }
           }
         }
-      }
-      posts(term: $slug, taxonomy: $taxonomy, after: $cursor, first: $count) {
-        ...Archive_posts
+        posts(term: $slug, taxonomy: $taxonomy, after: $cursor, first: $count) {
+          ...Archive_posts
+        }
       }
     }
-  }
-  ${Archive.fragments.posts}
-`,
+    ${Archive.fragments.posts}
+  `,
   {
     options: ({ params: { slug, tag = null } }) => {
       let taxonomy = 'category';

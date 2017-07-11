@@ -17,40 +17,40 @@ import styles from './Single.scss';
 
 @graphql(
   gql`
-  query Single_Query($slug: String!) {
-    viewer {
-      post(slug: $slug) {
-        id
-        date
-        title {
-          rendered
-        }
-        content {
-          rendered
-        }
-        excerpt {
-          raw
-        }
-        featuredMedia {
-          ...Media_media
-          ... on Image {
-            source_url
-          }
-        }
-        tags {
+    query Single_Query($slug: String!) {
+      viewer {
+        post(slug: $slug) {
           id
-          name
-          slug
-        }
-        comments(slug: $slug, first: 100) {
-          ...Comments_comments
+          date
+          title {
+            rendered
+          }
+          content {
+            rendered
+          }
+          excerpt {
+            raw
+          }
+          featuredMedia {
+            ...Media_media
+            ... on Image {
+              source_url
+            }
+          }
+          tags {
+            id
+            name
+            slug
+          }
+          comments(slug: $slug, first: 100) {
+            ...Comments_comments
+          }
         }
       }
     }
-  }
-  ${Media.fragments.media}
-  ${Comments.fragments.comments}
-`,
+    ${Media.fragments.media}
+    ${Comments.fragments.comments}
+  `,
   {
     options: ({ params: { slug } }) => ({ variables: { slug } }),
   }
@@ -84,7 +84,9 @@ export default class Single extends Component {
       node.onclick = e => {
         e.preventDefault();
 
-        const data = JSON.parse(node.querySelector('script[type="application/json"]').innerHTML);
+        const data = JSON.parse(
+          node.querySelector('script[type="application/json"]').innerHTML
+        );
         let width = data.width;
         let height = data.height;
         let html = data.html;
@@ -143,13 +145,18 @@ export default class Single extends Component {
           <meta property="og:title" content={title} />
           <meta property="og:url" content={url} />
           <meta property="og:description" content={excerpt} />
-          {featuredImage && <meta property="og:image" content={featuredImage} />}
+          {featuredImage &&
+            <meta property="og:image" content={featuredImage} />}
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={excerpt} />
-          {featuredImage && <meta name="twitter:image" content={featuredImage} />}
+          {featuredImage &&
+            <meta name="twitter:image" content={featuredImage} />}
         </Helmet>
         <header>
-          <h1 className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
+          <h1
+            className={styles.title}
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
           <div className={styles.meta}>
             Posted:{' '}
             <Link to={`/${year}/${month}`}>

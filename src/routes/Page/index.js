@@ -13,28 +13,28 @@ import styles from './Page.scss';
 
 @graphql(
   gql`
-  query Page_Query($slug: String!) {
-    viewer {
-      page(slug: $slug) {
-        id
-        slug
-        title {
-          rendered
-        }
-        content {
-          rendered
-        }
-        featuredMedia {
-          ... on Image {
-            source_url
+    query Page_Query($slug: String!) {
+      viewer {
+        page(slug: $slug) {
+          id
+          slug
+          title {
+            rendered
           }
-          ...Media_media
+          content {
+            rendered
+          }
+          featuredMedia {
+            ... on Image {
+              source_url
+            }
+            ...Media_media
+          }
         }
       }
     }
-  }
-  ${Media.fragments.media}
-`,
+    ${Media.fragments.media}
+  `,
   {
     options: ({ params: { slug } }) => ({ variables: { slug } }),
   }
@@ -58,7 +58,12 @@ export default class Page extends Component {
 
     const {
       viewer: {
-        page: { slug, title: { rendered: title }, content: { rendered: content }, featuredMedia },
+        page: {
+          slug,
+          title: { rendered: title },
+          content: { rendered: content },
+          featuredMedia,
+        },
       },
     } = this.props.data;
     const url = `${SITE_URL}/${slug}`;
@@ -74,12 +79,17 @@ export default class Page extends Component {
           <meta property="og:type" content="article" />
           <meta property="og:title" content={title} />
           <meta property="og:url" content={url} />
-          {featuredImage && <meta property="og:image" content={featuredImage} />}
+          {featuredImage &&
+            <meta property="og:image" content={featuredImage} />}
           <meta name="twitter:title" content={title} />
-          {featuredImage && <meta name="twitter:image" content={featuredImage} />}
+          {featuredImage &&
+            <meta name="twitter:image" content={featuredImage} />}
         </Helmet>
         <header>
-          <h1 className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
+          <h1
+            className={styles.title}
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
         </header>
         {featuredMedia && <Media media={featuredMedia} crop={'large'} />}
         <section dangerouslySetInnerHTML={{ __html: content }} />

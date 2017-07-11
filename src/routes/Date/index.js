@@ -12,15 +12,15 @@ import styles from './Date.scss';
 
 @graphql(
   gql`
-  query Date_Query($year: Int!, $month: Int, $day: Int, $cursor: String, $count: Int) {
-    viewer {
-      posts(year: $year, month: $month, day: $day, after: $cursor, first: $count) {
-        ...Archive_posts
+    query Date_Query($year: Int!, $month: Int, $day: Int, $cursor: String, $count: Int) {
+      viewer {
+        posts(year: $year, month: $month, day: $day, after: $cursor, first: $count) {
+          ...Archive_posts
+        }
       }
     }
-  }
-  ${Archive.fragments.posts}
-`,
+    ${Archive.fragments.posts}
+  `,
   {
     options: ({ params }) => {
       const variables = ['year', 'month', 'day'].reduce((memo, value) => {
