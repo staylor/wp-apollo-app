@@ -11,31 +11,6 @@ import styles from './Post.scss';
 /* eslint-disable react/no-danger */
 
 export default class Post extends Component {
-  static fragments = {
-    post: gql`
-      fragment Post_post on Post {
-        id
-        slug
-        date
-        title {
-          rendered
-        }
-        content {
-          rendered
-        }
-        excerpt {
-          rendered
-        }
-        featuredMedia {
-          ...Media_media
-        }
-        ...PostLink_post
-      }
-      ${PostLink.fragments.post}
-      ${Media.fragments.media}
-    `,
-  };
-
   static propTypes = {
     post: PropTypes.shape({
       id: PropTypes.string,
@@ -105,3 +80,28 @@ export default class Post extends Component {
     );
   }
 }
+
+Post.fragments = {
+  post: gql`
+    fragment Post_post on Post {
+      id
+      slug
+      date
+      title {
+        rendered
+      }
+      content {
+        rendered
+      }
+      excerpt {
+        rendered
+      }
+      featuredMedia {
+        ...Media_media
+      }
+      ...PostLink_post
+    }
+    ${PostLink.fragments.post}
+    ${Media.fragments.media}
+  `,
+};

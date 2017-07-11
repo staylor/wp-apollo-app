@@ -20,15 +20,15 @@ export const routeConfig = makeRouteConfig(
     getComponent={getComponent(() => /* webpackChunkName: "app" */ import('../components/App'))}
   >
     <Route
-      path="music/:slug"
+      path=":category(music)/:slug"
       getComponent={getComponent(() => /* webpackChunkName: "term" */ import('./Term'))}
     />
     <Route
-      path="tag/:slug"
+      path=":tag(tag)/:slug"
       getComponent={getComponent(() => /* webpackChunkName: "term" */ import('./Term'))}
     />
     <Route
-      path=":year(\d+)/:month(\d+)/:day(\d+)/:id"
+      path=":year(\d+)/:month(\d+)/:day(\d+)/:slug"
       getComponent={getComponent(() => /* webpackChunkName: "single" */ import('./Single'))}
     />
     <Route

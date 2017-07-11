@@ -8,27 +8,6 @@ import { sortOrderedHierarchy } from 'utils/walker';
 import styles from './NavMenu.scss';
 
 export default class NavMenu extends Component {
-  static fragments = {
-    navMenu: gql`
-      fragment NavMenu_navMenu on NavMenu {
-        id
-        name
-        items {
-          id
-          title
-          url
-          parent
-          order
-          type
-          typeName
-          typeSlug
-          dataSlug
-          dataID
-        }
-      }
-    `,
-  };
-
   static propTypes = {
     navMenu: PropTypes.shape({
       id: PropTypes.string,
@@ -92,9 +71,30 @@ export default class NavMenu extends Component {
     const navMenuHtml = this.walk(this.sorted.top);
 
     return (
-      <nav className={styles.access} role="navigation">
+      <nav className={styles.access}>
         {navMenuHtml}
       </nav>
     );
   }
 }
+
+NavMenu.fragments = {
+  navMenu: gql`
+    fragment NavMenu_navMenu on NavMenu {
+      id
+      name
+      items {
+        id
+        title
+        url
+        parent
+        order
+        type
+        typeName
+        typeSlug
+        dataSlug
+        dataID
+      }
+    }
+  `,
+};

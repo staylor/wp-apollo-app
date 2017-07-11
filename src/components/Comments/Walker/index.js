@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { Form, Comment } from 'components/Comments';
-import { CommentConnectionType } from 'components/Comments/types';
+import { gql } from 'react-apollo';
 import { sortHierarchy } from 'utils/walker';
+import Form from '../Form';
+import Comment from '../Comment';
+import { CommentConnectionType } from '../types';
 import styles from './Walker.scss';
 
-export default class CommentsWalker extends Component {
+export default class Walker extends Component {
   static propTypes = {
     post: PropTypes.string.isRequired,
     comments: CommentConnectionType,
@@ -61,7 +63,7 @@ export default class CommentsWalker extends Component {
     if (!this.props.comments) {
       return (
         <section>
-          {<Form post={this.props.post} setReplyTo={this.setReplyTo} />}
+          <Form post={this.props.post} setReplyTo={this.setReplyTo} />
         </section>
       );
     }
@@ -77,3 +79,18 @@ export default class CommentsWalker extends Component {
     );
   }
 }
+
+Walker.fragments = {
+  comments: gql`
+    fragment Walker_comments on CommentConnection {
+      edges {
+        node {
+          id
+          parent
+          ...Comment_comment
+        }
+      }
+    }
+    ${Comment.fragments.comment}
+  `,
+};

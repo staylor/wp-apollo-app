@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import UpdateCommentMutation from 'mutations/UpdateComment';
-import { CommentType } from 'components/Comments/types';
+import { CommentType } from '../../types';
 import styles from './Edit.scss';
 
 export default class Edit extends Component {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { gql } from 'react-apollo';
 import Post from '../Post';
 import styles from './Archive.scss';
 
@@ -27,6 +28,26 @@ const Archive = ({ fetchMore = null, posts: { edges } }) =>
         MORE
       </button>}
   </section>;
+
+Archive.fragments = {
+  posts: gql`
+    fragment Archive_posts on PostConnection {
+      edges {
+        node {
+          ...Post_post
+        }
+        cursor
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
+    }
+    ${Post.fragments.post}
+  `,
+};
 
 Archive.propTypes = {
   fetchMore: PropTypes.func,

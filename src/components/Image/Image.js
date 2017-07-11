@@ -4,22 +4,6 @@ import { gql } from 'react-apollo';
 import styles from './Image.scss';
 
 export default class Image extends Component {
-  static fragments = {
-    image: gql`
-      fragment Image_image on Media {
-        ... on Image {
-          source_url
-          media_details {
-            sizes {
-              name
-              source_url
-            }
-          }
-        }
-      }
-    `,
-  };
-
   static propTypes = {
     crop: PropTypes.string,
     image: PropTypes.shape({
@@ -60,8 +44,24 @@ export default class Image extends Component {
 
     return (
       <figure>
-        <img alt="" className={styles.image} src={chosen.source_url} role="presentation" />
+        <img alt="" className={styles.image} src={chosen.source_url} />
       </figure>
     );
   }
 }
+
+Image.fragments = {
+  image: gql`
+    fragment Image_image on Media {
+      ... on Image {
+        source_url
+        media_details {
+          sizes {
+            name
+            source_url
+          }
+        }
+      }
+    }
+  `,
+};

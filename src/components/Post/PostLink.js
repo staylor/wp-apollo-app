@@ -4,9 +4,9 @@ import { gql } from 'react-apollo';
 import { Link } from 'found';
 import { dateRegex } from 'utils/regex';
 
-const PostLink = ({ children, post: { id, date, title: { rendered: title } } }) => {
+const PostLink = ({ children, post: { slug, date, title: { rendered: title } } }) => {
   const [, year, month, day] = dateRegex.exec(date);
-  const url = `/${year}/${month}/${day}/${id}`;
+  const url = `/${year}/${month}/${day}/${slug}`;
   if (children) {
     return (
       <Link to={url}>
@@ -30,7 +30,7 @@ PostLink.defaultProps = {
 PostLink.fragments = {
   post: gql`
     fragment PostLink_post on Post {
-      id
+      slug
       date
       title {
         rendered
