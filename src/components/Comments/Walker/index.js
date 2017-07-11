@@ -42,7 +42,12 @@ export default class Walker extends Component {
 
     return (
       <li key={id} className={cn(styles.comment, styles[`level${this.level}`])}>
-        <Comment comment={comment} active={active} setReplyTo={this.setReplyTo} />
+        <Comment
+          post={this.props.post}
+          comment={comment}
+          active={active}
+          setReplyTo={this.setReplyTo}
+        />
         {this.sorted[id] ? this.walk(this.sorted[id]) : null}
         {active
           ? <Form post={this.props.post} replyTo={id} setReplyTo={this.setReplyTo} />

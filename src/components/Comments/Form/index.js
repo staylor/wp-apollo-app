@@ -5,8 +5,8 @@ import { graphql, gql } from 'react-apollo';
 import md5 from 'md5';
 import SingleQuery from 'queries/Single';
 import { newlineRegex } from 'utils/regex';
+import { Comment as CommentFragments } from 'fragments/Comments';
 import { AUTHOR_NAME_COOKIE, AUTHOR_EMAIL_COOKIE, AUTHOR_URL_COOKIE } from '../constants';
-import Comment from '../Comment';
 import styles from './Form.scss';
 
 const fields = {
@@ -37,7 +37,7 @@ const getDefaultState = props => {
       status
     }
   }
-  ${Comment.fragments.comment}
+  ${CommentFragments.comment}
 `)
 @withCookies
 export default class Form extends Component {

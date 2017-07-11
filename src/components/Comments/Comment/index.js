@@ -19,6 +19,10 @@ import styles from './Comment.scss';
 @withCookies
 export default class Comment extends Component {
   static propTypes = {
+    post: PropTypes.shape({
+      id: PropTypes.string,
+      slug: PropTypes.string,
+    }).isRequired,
     cookies: PropTypes.instanceOf(Cookies).isRequired,
     active: PropTypes.bool.isRequired,
     setReplyTo: PropTypes.func.isRequired,
@@ -99,6 +103,7 @@ export default class Comment extends Component {
     if (this.state.editing) {
       commentContent = (
         <EditComment
+          post={this.props.post}
           token={this.editToken}
           comment={this.props.comment}
           onEditSubmit={this.onEditSubmit}
