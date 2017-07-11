@@ -24,7 +24,12 @@ import styles from './Author.scss';
     ${Archive.fragments.posts}
   `,
   {
-    options: ({ params: { id } }) => ({ variables: { id } }),
+    options: ({ params: { id } }) => ({
+      variables: {
+        id,
+        count: 10,
+      },
+    }),
   }
 )
 export default class Author extends Component {

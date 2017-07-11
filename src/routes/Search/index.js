@@ -21,7 +21,12 @@ import styles from './Search.scss';
     ${Archive.fragments.posts}
   `,
   {
-    options: { variables: { search: '', count: 10 } },
+    options: {
+      variables: {
+        search: '',
+        count: 10,
+      },
+    },
   }
 )
 export default class Search extends Component {

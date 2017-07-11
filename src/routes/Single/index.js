@@ -17,7 +17,7 @@ import styles from './Single.scss';
 
 @graphql(
   gql`
-    query Single_Query($slug: String!) {
+    query Single_Query($slug: String!, $commentCount: Int) {
       viewer {
         post(slug: $slug) {
           id
@@ -42,7 +42,7 @@ import styles from './Single.scss';
             name
             slug
           }
-          comments(slug: $slug, first: 100) {
+          comments(slug: $slug, first: $commentCount) {
             ...Comments_comments
           }
         }
@@ -52,7 +52,12 @@ import styles from './Single.scss';
     ${Comments.fragments.comments}
   `,
   {
-    options: ({ params: { slug } }) => ({ variables: { slug } }),
+    options: ({ params: { slug } }) => ({
+      variables: {
+        slug,
+        commentCount: 100,
+      },
+    }),
   }
 )
 export default class Single extends Component {

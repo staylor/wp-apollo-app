@@ -36,7 +36,11 @@ import styles from './Page.scss';
     ${Media.fragments.media}
   `,
   {
-    options: ({ params: { slug } }) => ({ variables: { slug } }),
+    options: ({ params: { slug } }) => ({
+      variables: {
+        slug,
+      },
+    }),
   }
 )
 export default class Page extends Component {

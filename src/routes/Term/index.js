@@ -39,7 +39,13 @@ import styles from './Term.scss';
       if (tag) {
         taxonomy = 'tag';
       }
-      return { variables: { slug, taxonomy, count: 10 } };
+      return {
+        variables: {
+          slug,
+          taxonomy,
+          count: 10,
+        },
+      };
     },
   }
 )
@@ -54,10 +60,6 @@ export default class Term extends Component {
       }),
     }).isRequired,
   };
-
-  loadMore() {
-    return this;
-  }
 
   render() {
     const { data: { error, loading } } = this.props;
