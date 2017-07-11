@@ -139,7 +139,13 @@ export default class Form extends Component {
           store.writeQuery({ ...queryVars, data });
         },
       })
-      .then(() => {
+      .then(({ data }) => {
+        if (data.addComment && data.addComment.cookies) {
+          const values = data.addComment.cookies.split(',');
+          values.forEach(cookie => {
+            document.cookie = cookie;
+          });
+        }
         this.setState({
           comment: getDefaultState(this.props),
         });
