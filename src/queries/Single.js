@@ -1,6 +1,6 @@
 import { gql } from 'react-apollo';
 import Media from 'components/Media';
-import Comments from 'fragments/Comments';
+import Comments from 'components/Comments/fragments';
 
 const SingleQuery = gql`
   query Single_Query($slug: String!, $commentCount: Int) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CommentsFragments from 'fragments/Comments';
+import CommentsFragments from './fragments';
 import Walker from './Walker';
 import { CommentConnectionType } from './types';
 import styles from './Comments.scss';

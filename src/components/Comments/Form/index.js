@@ -5,7 +5,7 @@ import { graphql, gql } from 'react-apollo';
 import md5 from 'md5';
 import SingleQuery from 'queries/Single';
 import { newlineRegex } from 'utils/regex';
-import { Comment as CommentFragments } from 'fragments/Comments';
+import { Comment as CommentFragments } from '../fragments';
 import { AUTHOR_NAME_COOKIE, AUTHOR_EMAIL_COOKIE, AUTHOR_URL_COOKIE } from '../constants';
 import styles from './Form.scss';
 

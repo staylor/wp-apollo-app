@@ -5,9 +5,9 @@ import md5 from 'md5';
 import { withCookies, Cookies } from 'react-cookie';
 import { intlShape } from 'react-intl';
 import withIntl from 'decorators/withIntl';
-import DeleteCommentMutation from 'mutations/DeleteComment';
-import { Comment as CommentFragments } from 'fragments/Comments';
+import { Comment as CommentFragments } from '../fragments';
 import EditComment from './Edit';
+import DeleteButton from './DeleteButton';
 import { AUTHOR_EMAIL_COOKIE } from '../constants';
 import { CommentType } from '../types';
 import styles from './Comment.scss';
@@ -53,13 +53,6 @@ export default class Comment extends Component {
   onEditSubmit = () => {
     this.setState({
       editing: false,
-    });
-  };
-
-  onDelete = () => {
-    DeleteCommentMutation.commit(this.props.relay.environment, {
-      comment: this.props.comment,
-      token: this.editToken,
     });
   };
 
@@ -141,9 +134,11 @@ export default class Comment extends Component {
             <button className={styles.edit} onClick={this.onEditClick}>
               Edit
             </button>
-            <button className={styles.deletion} onClick={this.onDelete}>
-              Delete
-            </button>
+            <DeleteButton
+              editToken={this.editToken}
+              post={this.props.post}
+              comment={this.props.comment}
+            />
           </div>}
       </div>
     );
