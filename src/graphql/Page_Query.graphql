@@ -1,0 +1,22 @@
+#import "./Media_media.graphql"
+
+query Page_Query($slug: String!) {
+  viewer {
+    page(slug: $slug) {
+      id
+      slug
+      title {
+        rendered
+      }
+      content {
+        rendered
+      }
+      featuredMedia {
+        ... on Image {
+          source_url
+        }
+        ...Media_media
+      }
+    }
+  }
+}

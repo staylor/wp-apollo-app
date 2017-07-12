@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { sortHierarchy } from 'utils/walker';
-import { Walker as WalkerFragments } from '../fragments';
 import Form from '../Form';
 import Comment from '../Comment';
 import { CommentConnectionType } from '../types';
@@ -90,5 +89,3 @@ export default class Walker extends Component {
     );
   }
 }
-
-Walker.fragments = WalkerFragments;

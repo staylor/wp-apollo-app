@@ -8,7 +8,7 @@ import Media from 'components/Media';
 import Comments from 'components/Comments';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
-import SingleQuery from 'queries/Single';
+import SingleQuery from 'graphql/Single_Query.graphql';
 import { convertPlaceholders } from 'utils';
 import { dateRegex } from 'utils/regex';
 import { SITE_URL } from 'utils/constants';

@@ -1,50 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { Link } from 'found';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import HomeQuery from 'graphql/Home_Query.graphql';
 import styles from './Home.scss';
 
 /* eslint-disable react/prefer-stateless-function */
 
-@graphql(
-  gql`
-    query Home_Query(
-      $stickiesTotal: Int,
-      $watchThisTotal: Int,
-      $readThisTotal: Int,
-      $listenToThisTotal: Int,
-    ) {
-      viewer {
-        stickies: posts(sticky: true, first: $stickiesTotal) {
-          ...Archive_posts
-        }
-        readThis: posts(category: "read-this", sticky: false, first: $readThisTotal) {
-          ...Archive_posts
-        }
-        watchThis: posts(category: "watch-this", first: $watchThisTotal) {
-          ...Archive_posts
-        }
-        listenToThis: posts(category: "listen-to-this", first: $listenToThisTotal) {
-          ...Archive_posts
-        }
-      }
-    }
-    ${Archive.fragments.posts}
-  `,
-  {
-    options: {
-      variables: {
-        stickiesTotal: 2,
-        watchThisTotal: 5,
-        readThisTotal: 5,
-        listenToThisTotal: 5,
-      },
+@graphql(HomeQuery, {
+  options: {
+    variables: {
+      stickiesTotal: 2,
+      watchThisTotal: 5,
+      readThisTotal: 5,
+      listenToThisTotal: 5,
     },
-  }
-)
+  },
+})
 export default class Home extends Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -65,9 +40,7 @@ export default class Home extends Component {
       return <Loading />;
     }
 
-    const {
-      viewer: { readThis, watchThis, listenToThis, stickies },
-    } = this.props.data;
+    const { viewer: { readThis, watchThis, listenToThis, stickies } } = this.props.data;
 
     return (
       <div className={styles.columns}>

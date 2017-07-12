@@ -1,0 +1,21 @@
+#import "./Media_media.graphql"
+#import "./PostLink_post.graphql"
+
+fragment Post_post on Post {
+  id
+  slug
+  date
+  title {
+    rendered
+  }
+  content {
+    rendered
+  }
+  excerpt {
+    rendered
+  }
+  featuredMedia {
+    ...Media_media
+  }
+  ...PostLink_post
+}

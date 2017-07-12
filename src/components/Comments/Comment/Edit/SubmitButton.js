@@ -1,24 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
-import SingleQuery from 'queries/Single';
+import { graphql } from 'react-apollo';
+import UpdateCommentMutation from 'graphql/UpdateComment_Mutation.graphql';
+import SingleQuery from 'graphql/Single_Query.graphql';
 import { newlineRegex } from 'utils/regex';
 import { CommentType } from '../../types';
-import { Comment as CommentFragments } from '../../fragments';
 import styles from './Edit.scss';
 
-@graphql(gql`
-  mutation UpdateComment_Mutation($input: UpdateCommentInput!) {
-    updateComment(input: $input) {
-      comment {
-        ...Comment_comment
-      }
-      cookies
-      status
-    }
-  }
-  ${CommentFragments.comment}
-`)
+@graphql(UpdateCommentMutation)
 export default class SubmitButton extends Component {
   static propTypes = {
     content: PropTypes.string.isRequired,

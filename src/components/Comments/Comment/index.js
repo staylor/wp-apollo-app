@@ -5,7 +5,6 @@ import md5 from 'md5';
 import { withCookies, Cookies } from 'react-cookie';
 import { intlShape } from 'react-intl';
 import withIntl from 'decorators/withIntl';
-import { Comment as CommentFragments } from '../fragments';
 import EditComment from './Edit';
 import DeleteButton from './DeleteButton';
 import { AUTHOR_EMAIL_COOKIE } from '../constants';
@@ -144,5 +143,3 @@ export default class Comment extends Component {
     );
   }
 }
-
-Comment.fragments = CommentFragments;

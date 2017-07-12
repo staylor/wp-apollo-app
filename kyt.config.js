@@ -7,10 +7,20 @@ module.exports = {
 
   modifyWebpackConfig(kytConfig, opts) {
     const config = Object.assign({}, kytConfig);
-    if (opts.environment === 'development' && opts.type === 'client' && !opts.reactHotLoader) {
+    if (
+      opts.environment === 'development' &&
+      opts.type === 'client' &&
+      !opts.reactHotLoader
+    ) {
       config.plugins.shift();
       config.entry.main = [config.entry.main[0], config.entry.main[2]];
     }
+
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    });
     return config;
   },
 };

@@ -3,18 +3,17 @@ import { getFarceResult } from 'found/lib/server';
 import { CookiesProvider } from 'react-cookie';
 import template from 'server/template';
 import { historyMiddlewares, render, routeConfig } from 'routes';
-import {
-  ApolloClient,
-  createNetworkInterface,
-  ApolloProvider,
-  renderToStringWithData,
-} from 'react-apollo';
+import { ApolloClient, ApolloProvider, renderToStringWithData } from 'react-apollo';
+import { PersistedQueryNetworkInterface } from 'persistgraphql';
+import queryMap from 'apollo/queries.json';
 import fragmentMatcher from 'apollo/fragmentMatcher';
 
-export default ({ manifestJSBundle, mainJSBundle, vendorJSBundle, mainCSSBundle }) => async (
-  req,
-  res
-) => {
+export default ({
+  manifestJSBundle,
+  mainJSBundle,
+  vendorJSBundle,
+  mainCSSBundle,
+}) => async (req, res) => {
   try {
     const { redirect, element } = await getFarceResult({
       url: req.url,
@@ -28,10 +27,13 @@ export default ({ manifestJSBundle, mainJSBundle, vendorJSBundle, mainCSSBundle 
       return;
     }
 
+    const uri = 'http://localhost:3000/graphql';
+
     const client = new ApolloClient({
       ssrMode: true,
-      networkInterface: createNetworkInterface({
-        uri: 'http://localhost:8080/graphql',
+      networkInterface: new PersistedQueryNetworkInterface({
+        queryMap,
+        uri,
       }),
       fragmentMatcher,
     });

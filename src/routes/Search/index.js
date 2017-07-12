@@ -1,34 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import SearchQuery from 'graphql/Search_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 import debounce from 'debounce';
 import styles from './Search.scss';
 
-@graphql(
-  gql`
-    query Search_Query($search: String, $count: Int, $cursor: String) {
-      viewer {
-        posts(search: $search, first: $count, after: $cursor) {
-          ...Archive_posts
-        }
-      }
-    }
-    ${Archive.fragments.posts}
-  `,
-  {
-    options: {
-      variables: {
-        search: '',
-        count: 10,
-      },
+@graphql(SearchQuery, {
+  options: {
+    variables: {
+      search: '',
+      count: 10,
     },
-  }
-)
+  },
+})
 export default class Search extends Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -72,9 +61,7 @@ export default class Search extends Component {
   };
 
   render() {
-    const {
-      data: { loading, error, variables, fetchMore, viewer },
-    } = this.props;
+    const { data: { loading, error, variables, fetchMore, viewer } } = this.props;
     if (error) {
       return <Error />;
     }

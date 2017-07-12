@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CommentsFragments from './fragments';
 import Walker from './Walker';
 import { CommentConnectionType } from './types';
 import styles from './Comments.scss';
@@ -13,8 +12,6 @@ export default function Comments({ post, comments }) {
     </aside>
   );
 }
-
-Comments.fragments = CommentsFragments;
 
 Comments.propTypes = {
   post: PropTypes.shape({

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
-import { graphql, gql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import md5 from 'md5';
-import SingleQuery from 'queries/Single';
 import { newlineRegex } from 'utils/regex';
-import { Comment as CommentFragments } from '../fragments';
+import SingleQuery from 'graphql/Single_Query.graphql';
+import AddCommentMutation from 'graphql/AddComment_Mutation.graphql';
 import { AUTHOR_NAME_COOKIE, AUTHOR_EMAIL_COOKIE, AUTHOR_URL_COOKIE } from '../constants';
 import styles from './Form.scss';
 
@@ -27,18 +27,7 @@ const getDefaultState = props => {
   return state;
 };
 
-@graphql(gql`
-  mutation AddComment_Mutation($input: AddCommentInput!) {
-    addComment(input: $input) {
-      comment {
-        ...Comment_comment
-      }
-      cookies
-      status
-    }
-  }
-  ${CommentFragments.comment}
-`)
+@graphql(AddCommentMutation)
 @withCookies
 export default class Form extends Component {
   static propTypes = {

@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import createInitialBrowserRouter from 'found/lib/createInitialBrowserRouter';
 import { CookiesProvider } from 'react-cookie';
 import { historyMiddlewares, render, routeConfig } from 'routes';
-import { ApolloProvider, ApolloClient, createNetworkInterface } from 'react-apollo';
+import { ApolloProvider, ApolloClient } from 'react-apollo';
+import { PersistedQueryNetworkInterface } from 'persistgraphql';
+import queryMap from 'apollo/queries.json';
 import fragmentMatcher from 'apollo/fragmentMatcher';
 
 (async () => {
@@ -13,7 +15,8 @@ import fragmentMatcher from 'apollo/fragmentMatcher';
     const client = new ApolloClient({
       // eslint-disable-next-line no-underscore-dangle
       initialState: window.__APOLLO_STATE__,
-      networkInterface: createNetworkInterface({
+      networkInterface: new PersistedQueryNetworkInterface({
+        queryMap,
         uri,
       }),
       fragmentMatcher,

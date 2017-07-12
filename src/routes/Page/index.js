@@ -1,48 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { graphql, gql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import Media from 'components/Media';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import PageQuery from 'graphql/Page_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 import styles from './Page.scss';
 
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prefer-stateless-function */
 
-@graphql(
-  gql`
-    query Page_Query($slug: String!) {
-      viewer {
-        page(slug: $slug) {
-          id
-          slug
-          title {
-            rendered
-          }
-          content {
-            rendered
-          }
-          featuredMedia {
-            ... on Image {
-              source_url
-            }
-            ...Media_media
-          }
-        }
-      }
-    }
-    ${Media.fragments.media}
-  `,
-  {
-    options: ({ params: { slug } }) => ({
-      variables: {
-        slug,
-      },
-    }),
-  }
-)
+@graphql(PageQuery, {
+  options: ({ params: { slug } }) => ({
+    variables: {
+      slug,
+    },
+  }),
+})
 export default class Page extends Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -83,17 +59,12 @@ export default class Page extends Component {
           <meta property="og:type" content="article" />
           <meta property="og:title" content={title} />
           <meta property="og:url" content={url} />
-          {featuredImage &&
-            <meta property="og:image" content={featuredImage} />}
+          {featuredImage && <meta property="og:image" content={featuredImage} />}
           <meta name="twitter:title" content={title} />
-          {featuredImage &&
-            <meta name="twitter:image" content={featuredImage} />}
+          {featuredImage && <meta name="twitter:image" content={featuredImage} />}
         </Helmet>
         <header>
-          <h1
-            className={styles.title}
-            dangerouslySetInnerHTML={{ __html: title }}
-          />
+          <h1 className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
         </header>
         {featuredMedia && <Media media={featuredMedia} crop={'large'} />}
         <section dangerouslySetInnerHTML={{ __html: content }} />

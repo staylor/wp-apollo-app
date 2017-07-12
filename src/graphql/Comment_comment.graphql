@@ -1,0 +1,17 @@
+fragment Comment_comment on Comment {
+  id
+  author_name
+  author_url
+  author_hash
+  date
+  content {
+    rendered
+    raw
+  }
+  author_avatar_urls {
+    size
+    url
+  }
+  parent
+  post
+}

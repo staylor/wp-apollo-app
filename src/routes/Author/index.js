@@ -1,37 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import AuthorQuery from 'graphql/Author_Query.graphql';
 import styles from './Author.scss';
 
 /* eslint-disable react/prefer-stateless-function */
 
-@graphql(
-  gql`
-    query Author_Query($id: ID!) {
-      viewer {
-        author(id: $id) {
-          id
-          name
-        }
-        posts(author: $id, after: $cursor, first: $count) {
-          ...Archive_posts
-        }
-      }
-    }
-    ${Archive.fragments.posts}
-  `,
-  {
-    options: ({ params: { id } }) => ({
-      variables: {
-        id,
-        count: 10,
-      },
-    }),
-  }
-)
+@graphql(AuthorQuery, {
+  options: ({ params: { id } }) => ({
+    variables: {
+      id,
+      count: 10,
+    },
+  }),
+})
 export default class Author extends Component {
   static propTypes = {
     data: PropTypes.shape({

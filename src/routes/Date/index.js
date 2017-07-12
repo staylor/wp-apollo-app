@@ -1,44 +1,33 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import DateQuery from 'graphql/Date_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 import styles from './Date.scss';
 
 /* eslint-disable react/prefer-stateless-function */
 
-@graphql(
-  gql`
-    query Date_Query($year: Int!, $month: Int, $day: Int, $cursor: String, $count: Int) {
-      viewer {
-        posts(year: $year, month: $month, day: $day, after: $cursor, first: $count) {
-          ...Archive_posts
-        }
+@graphql(DateQuery, {
+  options: ({ params }) => {
+    const variables = ['year', 'month', 'day'].reduce((memo, value) => {
+      if (params[value]) {
+        memo[value] = parseInt(params[value], 10);
       }
-    }
-    ${Archive.fragments.posts}
-  `,
-  {
-    options: ({ params }) => {
-      const variables = ['year', 'month', 'day'].reduce((memo, value) => {
-        if (params[value]) {
-          memo[value] = parseInt(params[value], 10);
-        }
-        return memo;
-      }, {});
+      return memo;
+    }, {});
 
-      return {
-        variables: {
-          ...variables,
-          count: 10,
-        },
-      };
-    },
-  }
-)
+    return {
+      variables: {
+        ...variables,
+        count: 10,
+      },
+    };
+  },
+})
 export default class DateRoute extends Component {
   static propTypes = {
     data: PropTypes.shape({
@@ -61,9 +50,7 @@ export default class DateRoute extends Component {
     }
 
     const { variables, fetchMore, viewer: { posts } } = this.props.data;
-    const values = [params.month, params.day, params.year].filter(
-      value => value
-    );
+    const values = [params.month, params.day, params.year].filter(value => value);
     const path = values.join('/');
     const title = `Archives: ${path}`;
 

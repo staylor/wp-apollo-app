@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { gql } from 'react-apollo';
 import { Link } from 'found';
 import { dateRegex } from 'utils/regex';
 
@@ -25,18 +24,6 @@ PostLink.propTypes = {
 
 PostLink.defaultProps = {
   children: null,
-};
-
-PostLink.fragments = {
-  post: gql`
-    fragment PostLink_post on Post {
-      slug
-      date
-      title {
-        rendered
-      }
-    }
-  `,
 };
 
 export default PostLink;

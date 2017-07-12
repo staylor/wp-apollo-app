@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
-import SingleQuery from 'queries/Single';
+import { graphql } from 'react-apollo';
+import DeleteCommentMutation from 'graphql/DeleteComment_Mutation.graphql';
+import SingleQuery from 'graphql/Single_Query.graphql';
 import { CommentType } from '../types';
 import styles from './Comment.scss';
 
-@graphql(gql`
-  mutation DeleteComment_Mutation($input: DeleteCommentInput!) {
-    deleteComment(input: $input) {
-      status
-    }
-  }
-`)
+@graphql(DeleteCommentMutation)
 export default class DeleteButton extends Component {
   static propTypes = {
     post: PropTypes.shape({

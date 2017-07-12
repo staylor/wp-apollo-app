@@ -1,54 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { graphql, gql } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import TermQuery from 'graphql/Term_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 import styles from './Term.scss';
 
-@graphql(
-  gql`
-    query Term_Query($slug: String!, $taxonomy: String!, $cursor: String, $count: Int) {
-      viewer {
-        term(slug: $slug, taxonomy: $taxonomy) {
-          id
-          name
-          slug
-          taxonomy {
-            rewrite {
-              slug
-            }
-            labels {
-              singular
-              plural
-            }
-          }
-        }
-        posts(term: $slug, taxonomy: $taxonomy, after: $cursor, first: $count) {
-          ...Archive_posts
-        }
-      }
+@graphql(TermQuery, {
+  options: ({ params: { slug, tag = null } }) => {
+    let taxonomy = 'category';
+    if (tag) {
+      taxonomy = 'tag';
     }
-    ${Archive.fragments.posts}
-  `,
-  {
-    options: ({ params: { slug, tag = null } }) => {
-      let taxonomy = 'category';
-      if (tag) {
-        taxonomy = 'tag';
-      }
-      return {
-        variables: {
-          slug,
-          taxonomy,
-          count: 10,
-        },
-      };
-    },
-  }
-)
+    return {
+      variables: {
+        slug,
+        taxonomy,
+        count: 10,
+      },
+    };
+  },
+})
 export default class Term extends Component {
   static propTypes = {
     data: PropTypes.shape({
