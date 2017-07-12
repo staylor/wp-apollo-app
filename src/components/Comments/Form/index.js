@@ -128,6 +128,11 @@ export default class Form extends Component {
         optimisticResponse,
         refetchQueries: [{ ...queryVars }],
         update: (store, { data: { addComment } }) => {
+          if (!addComment.comment) {
+            // eslint-disable-next-line no-alert
+            alert(addComment.status);
+            return;
+          }
           const data = store.readQuery({ ...queryVars });
           data.viewer.post.comments.edges.push({
             __typename: 'CommentEdge',
