@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import DeleteCommentMutation from 'graphql/DeleteComment_Mutation.graphql';
-import SingleQuery from 'graphql/Single_Query.graphql';
 import { CommentType } from '../types';
 import styles from './Comment.scss';
 
 @graphql(DeleteCommentMutation)
 export default class DeleteButton extends Component {
+  static contextTypes = {
+    queryConfig: PropTypes.object,
+    post: PropTypes.object,
+  };
+
   static propTypes = {
-    post: PropTypes.shape({
-      id: PropTypes.string,
-      slug: PropTypes.string,
-    }).isRequired,
     mutate: PropTypes.func.isRequired,
     editToken: PropTypes.string.isRequired,
     comment: CommentType.isRequired,
@@ -35,23 +35,18 @@ export default class DeleteButton extends Component {
     };
 
     const queryVars = {
-      query: SingleQuery,
-      variables: {
-        // emoji and unicode get encoded
-        slug: decodeURIComponent(this.props.post.slug),
-        commentCount: 100,
-      },
+      ...this.context.queryConfig,
     };
 
     this.props.mutate({
       variables,
       optimisticResponse,
-      refetchQueries: [{ ...queryVars }],
+      refetchQueries: [queryVars],
       update: (store, { data: { deleteComment } }) => {
         if (deleteComment.status === 'pending') {
           return;
         }
-        const data = store.readQuery({ ...queryVars });
+        const data = store.readQuery(queryVars);
         const edges = data.viewer.post.comments.edges;
         const commentIndex = edges.find(
           ({ node }, index) => node.id === this.props.comment.id && index

@@ -6,10 +6,6 @@ import styles from './Edit.scss';
 
 export default class Edit extends Component {
   static propTypes = {
-    post: PropTypes.shape({
-      id: PropTypes.string,
-      slug: PropTypes.string,
-    }).isRequired,
     comment: CommentType.isRequired,
     token: PropTypes.string.isRequired,
     onEditSubmit: PropTypes.func.isRequired,
@@ -30,7 +26,7 @@ export default class Edit extends Component {
   };
 
   render() {
-    const { post, comment, token, onEditSubmit } = this.props;
+    const { comment, token, onEditSubmit } = this.props;
     return (
       <form onSubmit={e => e.preventDefault()} className={styles.form}>
         <textarea
@@ -42,7 +38,7 @@ export default class Edit extends Component {
         />
         <SubmitButton
           content={this.state.content}
-          {...{ post, comment, token, onEditSubmit }}
+          {...{ comment, token, onEditSubmit }}
         />
         <button type="reset" className={styles.cancel} onClick={this.props.onEditSubmit}>
           Cancel

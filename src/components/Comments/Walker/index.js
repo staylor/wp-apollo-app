@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { sortHierarchy } from 'utils/walker';
 import Form from '../Form';
@@ -9,10 +8,6 @@ import styles from './Walker.scss';
 
 export default class Walker extends Component {
   static propTypes = {
-    post: PropTypes.shape({
-      id: PropTypes.string,
-      slug: PropTypes.string,
-    }).isRequired,
     comments: CommentConnectionType,
   };
 
@@ -41,16 +36,9 @@ export default class Walker extends Component {
 
     return (
       <li key={id} className={cn(styles.comment, styles[`level${this.level}`])}>
-        <Comment
-          post={this.props.post}
-          comment={comment}
-          active={active}
-          setReplyTo={this.setReplyTo}
-        />
+        <Comment comment={comment} active={active} setReplyTo={this.setReplyTo} />
         {this.sorted[id] ? this.walk(this.sorted[id]) : null}
-        {active
-          ? <Form post={this.props.post} replyTo={id} setReplyTo={this.setReplyTo} />
-          : null}
+        {active ? <Form replyTo={id} setReplyTo={this.setReplyTo} /> : null}
       </li>
     );
   }
@@ -72,7 +60,7 @@ export default class Walker extends Component {
     if (!this.props.comments) {
       return (
         <section>
-          <Form post={this.props.post} setReplyTo={this.setReplyTo} />
+          <Form setReplyTo={this.setReplyTo} />
         </section>
       );
     }
@@ -83,8 +71,7 @@ export default class Walker extends Component {
     return (
       <section>
         {this.walk(this.sorted.top)}
-        {!this.state.replyTo &&
-          <Form post={this.props.post} setReplyTo={this.setReplyTo} />}
+        {!this.state.replyTo && <Form setReplyTo={this.setReplyTo} />}
       </section>
     );
   }

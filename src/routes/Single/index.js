@@ -4,10 +4,11 @@ import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import { Link } from 'found';
 import { FormattedRelative } from 'react-intl';
-import Media from 'components/Media';
-import Comments from 'components/Comments';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import Media from 'components/Media';
+import Comments from 'components/Comments';
+import { COMMENTS_PER_PAGE } from 'components/Comments/constants';
 import SingleQuery from 'graphql/Single_Query.graphql';
 import { convertPlaceholders } from 'utils';
 import { dateRegex } from 'utils/regex';
@@ -20,7 +21,7 @@ import styles from './Single.scss';
   options: ({ params: { slug } }) => ({
     variables: {
       slug,
-      commentCount: 100,
+      commentCount: COMMENTS_PER_PAGE,
     },
   }),
 })

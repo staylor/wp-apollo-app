@@ -4,7 +4,6 @@ import { withCookies, Cookies } from 'react-cookie';
 import { graphql } from 'react-apollo';
 import md5 from 'md5';
 import { newlineRegex } from 'utils/regex';
-import SingleQuery from 'graphql/Single_Query.graphql';
 import AddCommentMutation from 'graphql/AddComment_Mutation.graphql';
 import { AUTHOR_NAME_COOKIE, AUTHOR_EMAIL_COOKIE, AUTHOR_URL_COOKIE } from '../constants';
 import styles from './Form.scss';
@@ -30,12 +29,13 @@ const getDefaultState = props => {
 @graphql(AddCommentMutation)
 @withCookies
 export default class Form extends Component {
+  static contextTypes = {
+    queryConfig: PropTypes.object,
+    postId: PropTypes.string,
+  };
+
   static propTypes = {
     cookies: PropTypes.instanceOf(Cookies).isRequired,
-    post: PropTypes.shape({
-      id: PropTypes.string,
-      slug: PropTypes.string,
-    }).isRequired,
     replyTo: PropTypes.string,
     setReplyTo: PropTypes.func.isRequired,
     mutate: PropTypes.func.isRequired,
@@ -60,7 +60,7 @@ export default class Form extends Component {
     const variables = {
       input: {
         ...this.state.comment,
-        post: this.props.post.id,
+        post: this.context.postId,
       },
     };
 
@@ -94,7 +94,7 @@ export default class Form extends Component {
               )}?s=48&d=mm&r=g`,
             },
           ],
-          post: this.props.post.id,
+          post: this.context.postId,
           parent: variables.input.parent || null,
         },
         status: 'new',
@@ -103,26 +103,21 @@ export default class Form extends Component {
     };
 
     const queryVars = {
-      query: SingleQuery,
-      variables: {
-        // emoji and unicode get encoded
-        slug: decodeURIComponent(this.props.post.slug),
-        commentCount: 100,
-      },
+      ...this.context.queryConfig,
     };
 
     this.props
       .mutate({
         variables,
         optimisticResponse,
-        refetchQueries: [{ ...queryVars }],
+        refetchQueries: [queryVars],
         update: (store, { data: { addComment } }) => {
           if (!addComment.comment) {
             // eslint-disable-next-line no-alert
             alert(addComment.status);
             return;
           }
-          const data = store.readQuery({ ...queryVars });
+          const data = store.readQuery(queryVars);
           data.viewer.post.comments.edges.push({
             __typename: 'CommentEdge',
             node: {
