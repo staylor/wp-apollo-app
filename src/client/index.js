@@ -4,21 +4,15 @@ import createInitialBrowserRouter from 'found/lib/createInitialBrowserRouter';
 import { CookiesProvider } from 'react-cookie';
 import { historyMiddlewares, render, routeConfig } from 'routes';
 import { ApolloProvider, ApolloClient } from 'react-apollo';
-import { PersistedQueryNetworkInterface } from 'persistgraphql';
-import queryMap from 'apollo/queries.json';
+import networkInterface from 'apollo/networkInterface';
 import fragmentMatcher from 'apollo/fragmentMatcher';
 
 (async () => {
   try {
-    const uri = 'http://localhost:3000/graphql';
-
     const client = new ApolloClient({
       // eslint-disable-next-line no-underscore-dangle
       initialState: window.__APOLLO_STATE__,
-      networkInterface: new PersistedQueryNetworkInterface({
-        queryMap,
-        uri,
-      }),
+      networkInterface,
       fragmentMatcher,
     });
 
@@ -28,7 +22,8 @@ import fragmentMatcher from 'apollo/fragmentMatcher';
       routeConfig,
       render,
     });
-    ReactDOM.render(
+
+    ReactDOM.hydrate(
       <ApolloProvider client={client}>
         <CookiesProvider>
           <BrowserRouter />

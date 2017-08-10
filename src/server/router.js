@@ -1,11 +1,10 @@
 import React from 'react';
 import { getFarceResult } from 'found/lib/server';
 import { CookiesProvider } from 'react-cookie';
+import { ApolloClient, ApolloProvider, renderToStringWithData } from 'react-apollo';
 import template from 'server/template';
 import { historyMiddlewares, render, routeConfig } from 'routes';
-import { ApolloClient, ApolloProvider, renderToStringWithData } from 'react-apollo';
-import { PersistedQueryNetworkInterface } from 'persistgraphql';
-import queryMap from 'apollo/queries.json';
+import networkInterface from 'apollo/networkInterface';
 import fragmentMatcher from 'apollo/fragmentMatcher';
 
 export default ({
@@ -27,16 +26,12 @@ export default ({
       return;
     }
 
-    const uri = 'http://localhost:3000/graphql';
-
     const client = new ApolloClient({
       ssrMode: true,
-      networkInterface: new PersistedQueryNetworkInterface({
-        queryMap,
-        uri,
-      }),
+      networkInterface,
       fragmentMatcher,
     });
+
     const app = (
       <ApolloProvider client={client}>
         <CookiesProvider cookies={req.universalCookies}>
