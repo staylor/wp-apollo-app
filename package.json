@@ -45,7 +45,7 @@
     "lint-style": "kyt lint-style",
     "proto": "kyt proto",
     "kyt:help": "kyt --help",
-    "persist-queries": "persistgraphql src/ src/apollo/queries.json --add_typename"
+    "persist-queries": "persistgraphql src src/apollo/queries.json --add_typename"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
