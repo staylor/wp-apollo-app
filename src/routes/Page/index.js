@@ -47,7 +47,7 @@ export default class Page extends Component {
       },
     } = this.props.data;
     const url = `${SITE_URL}/${slug}`;
-    const featuredImage = (featuredMedia && featuredMedia.source_url) || null;
+    const featuredImage = (featuredMedia && featuredMedia.sourceUrl) || null;
 
     return (
       <article className={styles.content}>

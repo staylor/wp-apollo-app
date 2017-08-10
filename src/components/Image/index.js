@@ -6,8 +6,8 @@ export default class Image extends Component {
   static propTypes = {
     crop: PropTypes.string,
     image: PropTypes.shape({
-      source_url: PropTypes.String,
-      media_details: PropTypes.object,
+      sourceUrl: PropTypes.String,
+      mediaDetails: PropTypes.object,
     }).isRequired,
   };
 
@@ -30,7 +30,7 @@ export default class Image extends Component {
   }
 
   render() {
-    const { source_url: sourceUrl, media_details: { sizes } } = this.props.image;
+    const { sourceUrl, mediaDetails: { sizes } } = this.props.image;
 
     if (!sourceUrl) {
       return '';
@@ -43,7 +43,7 @@ export default class Image extends Component {
 
     return (
       <figure>
-        <img alt="" className={styles.image} src={chosen.source_url} />
+        <img alt="" className={styles.image} src={chosen.sourceUrl} />
       </figure>
     );
   }

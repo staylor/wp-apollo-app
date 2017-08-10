@@ -1,14 +1,14 @@
 fragment Comment_comment on Comment {
   id
-  author_name
-  author_url
-  author_hash
+  authorName
+  authorUrl
+  authorHash
   date
   content {
     rendered
     raw
   }
-  author_avatar_urls {
+  authorAvatarUrls {
     size
     url
   }

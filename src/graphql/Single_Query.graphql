@@ -19,7 +19,7 @@ query Single_Query($slug: String!, $commentCount: Int) {
       featuredMedia {
         ...Media_media
         ... on Image {
-          source_url
+          sourceUrl
         }
       }
       tags {

@@ -9,9 +9,9 @@ import { AUTHOR_NAME_COOKIE, AUTHOR_EMAIL_COOKIE, AUTHOR_URL_COOKIE } from '../c
 import styles from './Form.scss';
 
 const fields = {
-  author_name: { name: 'Name', cookie: AUTHOR_NAME_COOKIE },
-  author_email: { name: 'Email', cookie: AUTHOR_EMAIL_COOKIE },
-  author_url: { name: 'URL', cookie: AUTHOR_URL_COOKIE },
+  authorName: { name: 'Name', cookie: AUTHOR_NAME_COOKIE },
+  authorEmail: { name: 'Email', cookie: AUTHOR_EMAIL_COOKIE },
+  authorUrl: { name: 'URL', cookie: AUTHOR_URL_COOKIE },
 };
 
 const getDefaultState = props => {
@@ -75,22 +75,22 @@ export default class Form extends Component {
         comment: {
           __typename: 'Comment',
           id: '',
-          author_name: variables.input.author_name,
-          author_email: variables.input.author_email,
-          author_url: variables.input.author_url,
-          author_hash: '',
+          authorName: variables.input.authorName,
+          authorEmail: variables.input.authorEmail,
+          authorUrl: variables.input.authorUrl,
+          authorHash: '',
           date: new Date().toISOString(),
           content: {
             __typename: 'Content',
             raw: variables.input.content,
             rendered: `<p>${variables.input.content.replace(newlineRegex, '<br />')}</p>`,
           },
-          author_avatar_urls: [
+          authorAvatarUrls: [
             {
               __typename: 'Avatar',
               size: 48,
               url: `http://2.gravatar.com/avatar/${md5(
-                variables.input.author_email
+                variables.input.authorEmail
               )}?s=48&d=mm&r=g`,
             },
           ],

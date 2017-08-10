@@ -13,7 +13,7 @@ query Page_Query($slug: String!) {
       }
       featuredMedia {
         ... on Image {
-          source_url
+          sourceUrl
         }
         ...Media_media
       }

@@ -1,10 +1,10 @@
 fragment Image_image on Media {
   ... on Image {
-    source_url
-    media_details {
+    sourceUrl
+    mediaDetails {
       sizes {
         name
-        source_url
+        sourceUrl
       }
     }
   }
