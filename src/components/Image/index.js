@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styles from './Image.scss';
+import styled from 'emotion/react';
+
+const ResponsiveImage = styled.img`
+  display: block;
+  height: auto;
+  margin: 0 0 10px;
+  max-width: 100%;
+`;
 
 export default class Image extends Component {
   static propTypes = {
@@ -43,7 +50,7 @@ export default class Image extends Component {
 
     return (
       <figure>
-        <img alt="" className={styles.image} src={chosen.sourceUrl} />
+        <ResponsiveImage alt="" src={chosen.sourceUrl} />
       </figure>
     );
   }

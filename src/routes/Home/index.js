@@ -1,14 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'emotion/react';
 import { graphql } from 'react-apollo';
 import { Link } from 'found';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import HomeQuery from 'graphql/Home_Query.graphql';
-import styles from './Home.scss';
+import { clear, futura, uppercaseHeader } from 'styles/components';
 
-/* eslint-disable react/prefer-stateless-function */
+const HomeWrapper = styled.div`composes: ${clear};`;
+const HomeSection = styled.section`margin: 0 0 40px;`;
+const HomeHeader = styled.h2`composes: ${uppercaseHeader};`;
+
+const ColumnA = styled.div`
+  float: left;
+  margin: 0 2em 0 0;
+  max-width: 300px;
+  width: 38%;
+`;
+
+const ColumnB = styled.div`
+  float: left;
+  width: 60%;
+`;
+
+const MoreIn = styled(Link)`
+  composes: ${futura};
+  color: #000;
+  display: block;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+`;
 
 @graphql(HomeQuery, {
   options: {
@@ -43,37 +67,37 @@ export default class Home extends Component {
     const { viewer: { readThis, watchThis, listenToThis, stickies } } = this.props.data;
 
     return (
-      <div className={styles.columns}>
-        <div className={styles.columnA}>
-          <section className={styles.section}>
-            <h2 className={styles.header}>Latest</h2>
+      <HomeWrapper>
+        <ColumnA>
+          <HomeSection>
+            <HomeHeader>Latest</HomeHeader>
             <Archive posts={stickies} />
-          </section>
-          <section className={styles.section}>
-            <h2 className={styles.header}>Read This</h2>
+          </HomeSection>
+          <HomeSection>
+            <HomeHeader>Read This</HomeHeader>
             <Archive posts={readThis} />
-            <Link to={'/music/read-this'} className={styles.moreIn}>
+            <MoreIn to={'/music/read-this'}>
               More posts in <em>Read This</em> »
-            </Link>
-          </section>
-        </div>
-        <div className={styles.columnB}>
-          <section className={styles.section}>
-            <h2 className={styles.header}>Watch This</h2>
+            </MoreIn>
+          </HomeSection>
+        </ColumnA>
+        <ColumnB>
+          <HomeSection>
+            <HomeHeader>Watch This</HomeHeader>
             <Archive posts={watchThis} />
-            <Link to={'/music/watch-this'} className={styles.moreIn}>
+            <MoreIn to={'/music/watch-this'}>
               More posts in <em>Watch This</em> »
-            </Link>
-          </section>
-          <section className={styles.section}>
-            <h2 className={styles.header}>Listen to This</h2>
+            </MoreIn>
+          </HomeSection>
+          <HomeSection>
+            <HomeHeader>Listen to This</HomeHeader>
             <Archive posts={listenToThis} />
-            <Link to={'/music/listen-to-this'} className={styles.moreIn}>
+            <MoreIn to={'/music/listen-to-this'}>
               More posts in <em>Listen To This</em> »
-            </Link>
-          </section>
-        </div>
-      </div>
+            </MoreIn>
+          </HomeSection>
+        </ColumnB>
+      </HomeWrapper>
     );
   }
 }

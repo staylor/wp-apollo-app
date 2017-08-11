@@ -36,7 +36,7 @@ export const routeConfig = makeRouteConfig(
       )}
     />
     <Route
-      path=":year(\d+)/:month(\d+)?/:day(\d+)?"
+      path=":year(\d{4})/:month(\d{2})?/:day(\d{2})?"
       getComponent={getComponent(() => /* webpackChunkName: "date" */ import('./Date'))}
     />
     <Route

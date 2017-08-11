@@ -7,7 +7,7 @@ import Error from 'components/Error';
 import Loading from 'components/Loading';
 import DateQuery from 'graphql/Date_Query.graphql';
 import { SITE_URL } from 'utils/constants';
-import styles from './Date.scss';
+import { ContentWrapper, ArchiveHeader } from 'styles/components';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -55,18 +55,18 @@ export default class DateRoute extends Component {
     const title = `Archives: ${path}`;
 
     return (
-      <div className={styles.sections}>
+      <ContentWrapper>
         <Helmet>
           <title>
             {title}
           </title>
           <link rel="canonical" href={`${SITE_URL}/${path}`} />
         </Helmet>
-        <h2 className={styles.label}>
+        <ArchiveHeader>
           {title}
-        </h2>
+        </ArchiveHeader>
         <Archive {...{ posts, fetchMore, variables }} />
-      </div>
+      </ContentWrapper>
     );
   }
 }

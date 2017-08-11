@@ -1,7 +1,9 @@
 import React from 'react';
+import { renderToString } from 'react-dom/server';
 import { getFarceResult } from 'found/lib/server';
 import { CookiesProvider } from 'react-cookie';
-import { ApolloClient, ApolloProvider, renderToStringWithData } from 'react-apollo';
+import { extractCritical } from 'emotion/server';
+import { ApolloClient, ApolloProvider, getDataFromTree } from 'react-apollo';
 import template from 'server/template';
 import { historyMiddlewares, render, routeConfig } from 'routes';
 import networkInterface from 'apollo/networkInterface';
@@ -40,14 +42,18 @@ export default ({
       </ApolloProvider>
     );
 
-    renderToStringWithData(app).then(root => {
+    getDataFromTree(app).then(() => {
+      const { html, ids, css } = extractCritical(renderToString(app));
+
       const initialState = {
         apollo: client.getInitialState(),
       };
       res.status(200);
       res.send(
         template({
-          root,
+          root: html,
+          ids,
+          css,
           data: initialState,
           manifestJSBundle,
           mainJSBundle,

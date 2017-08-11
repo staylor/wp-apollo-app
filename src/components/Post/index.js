@@ -72,7 +72,11 @@ export default class Post extends Component {
           </PostLink>}
         <section
           ref={this.bindRef}
-          className={styles.content}
+          css={`
+            & p {
+              margin: 0 0 20px;
+            }
+          `}
           dangerouslySetInnerHTML={{ __html: postContent }}
         />
       </article>

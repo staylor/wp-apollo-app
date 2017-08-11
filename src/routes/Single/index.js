@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'emotion/react';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import { Link } from 'found';
@@ -13,9 +14,23 @@ import SingleQuery from 'graphql/Single_Query.graphql';
 import { convertPlaceholders } from 'utils';
 import { dateRegex } from 'utils/regex';
 import { SITE_URL } from 'utils/constants';
+import { ArticleWrapper } from 'styles/components';
 import styles from './Single.scss';
 
 /* eslint-disable react/no-danger */
+
+const Tag = styled(Link)`
+  display: inline-block;
+  margin: 0 0 0 5px;
+`;
+
+const Meta = styled.div`
+  clear: both;
+  color: #666;
+  font-size: 12px;
+  line-height: 18px;
+  margin-bottom: 10px;
+`;
 
 @graphql(SingleQuery, {
   options: ({ params: { slug } }) => ({
@@ -105,7 +120,7 @@ export default class Single extends Component {
     const featuredImage = (featuredMedia && featuredMedia.sourceUrl) || null;
 
     return (
-      <article className={styles.content}>
+      <ArticleWrapper>
         <Helmet>
           <title>
             {title}
@@ -122,7 +137,7 @@ export default class Single extends Component {
         </Helmet>
         <header>
           <h1 className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
-          <div className={styles.meta}>
+          <Meta>
             Posted:{' '}
             <Link to={`/${year}/${month}`}>
               <FormattedRelative
@@ -130,26 +145,35 @@ export default class Single extends Component {
                 style="numeric" // eslint-disable-line react/style-prop-object
               />
             </Link>
-          </div>
+          </Meta>
         </header>
         {featuredMedia && <Media media={featuredMedia} crop={'large'} />}
         <section
+          css={`
+            & h2 {
+              margin: 0 0 5px;
+            }
+
+            & p {
+              margin: 0 0 20px;
+            }
+          `}
           ref={this.bindRef}
           dangerouslySetInnerHTML={{
             __html: convertPlaceholders(content, styles),
           }}
         />
         {tags &&
-          <footer className={styles.footer}>
+          <footer>
             Tags:{' '}
             {tags.map(tag =>
-              <Link key={tag.id} to={`/tag/${tag.slug}`}>
+              <Tag key={tag.id} to={`/tag/${tag.slug}`}>
                 {tag.name}
-              </Link>
+              </Tag>
             )}
           </footer>}
         <Comments post={{ id, slug }} comments={comments} />
-      </article>
+      </ArticleWrapper>
     );
   }
 }

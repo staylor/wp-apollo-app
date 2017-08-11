@@ -4,7 +4,7 @@ import { graphql } from 'react-apollo';
 import UpdateCommentMutation from 'graphql/UpdateComment_Mutation.graphql';
 import { newlineRegex } from 'utils/regex';
 import { CommentType } from 'components/Comments/types';
-import styles from './Edit.scss';
+import { SubmitButton as Button } from 'styles/components';
 
 @graphql(UpdateCommentMutation)
 export default class SubmitButton extends Component {
@@ -73,9 +73,9 @@ export default class SubmitButton extends Component {
 
   render() {
     return (
-      <button type="submit" className={styles.button} onClick={this.onEdit}>
+      <Button type="submit" onClick={this.onEdit}>
         Submit
-      </button>
+      </Button>
     );
   }
 }

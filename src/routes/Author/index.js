@@ -5,7 +5,7 @@ import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import AuthorQuery from 'graphql/Author_Query.graphql';
-import styles from './Author.scss';
+import { ContentWrapper, ArchiveHeader } from 'styles/components';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -39,12 +39,12 @@ export default class Author extends Component {
 
     const { variables, fetchMore, viewer: { author, posts } } = this.props.data;
     return (
-      <div className={styles.sections}>
-        <h2 className={styles.header}>
+      <ContentWrapper>
+        <ArchiveHeader>
           {author.name}
-        </h2>
+        </ArchiveHeader>
         <Archive {...{ posts, fetchMore, variables }} />
-      </div>
+      </ContentWrapper>
     );
   }
 }

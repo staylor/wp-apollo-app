@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'emotion/react';
 import { graphql } from 'react-apollo';
 import DeleteCommentMutation from 'graphql/DeleteComment_Mutation.graphql';
 import { CommentType } from '../types';
-import styles from './Comment.scss';
+
+const Button = styled.button`
+  background: transparent;
+  border: 0 none;
+  color: #e50082;
+  cursor: pointer;
+  margin: 0 5px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 @graphql(DeleteCommentMutation)
 export default class DeleteButton extends Component {
@@ -58,10 +70,6 @@ export default class DeleteButton extends Component {
   };
 
   render() {
-    return (
-      <button className={styles.deletion} onClick={this.onDelete}>
-        Delete
-      </button>
-    );
+    return <Button onClick={this.onDelete}>Delete</Button>;
   }
 }

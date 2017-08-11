@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import cn from 'classnames';
+import { css } from 'emotion';
+import styled from 'emotion/react';
 import { sortHierarchy } from 'utils/walker';
 import Form from '../Form';
 import Comment from '../Comment';
 import { CommentConnectionType } from '../types';
-import styles from './Walker.scss';
+
+const nested = css`margin: 20px 0 20px 20px;`;
+const ListItem = styled.li`margin: 10px 0 20px;`;
 
 export default class Walker extends Component {
   static propTypes = {
@@ -35,17 +38,17 @@ export default class Walker extends Component {
     const active = this.state.replyTo === id;
 
     return (
-      <li key={id} className={cn(styles.comment, styles[`level${this.level}`])}>
+      <ListItem key={id}>
         <Comment comment={comment} active={active} setReplyTo={this.setReplyTo} />
         {this.sorted[id] ? this.walk(this.sorted[id]) : null}
         {active ? <Form replyTo={id} setReplyTo={this.setReplyTo} /> : null}
-      </li>
+      </ListItem>
     );
   }
 
   walk(node) {
     return (
-      <ul className={this.level ? styles.nested : null}>
+      <ul className={this.level ? nested : null}>
         {node.map(child => {
           if (!child.parent) {
             this.level = 0;

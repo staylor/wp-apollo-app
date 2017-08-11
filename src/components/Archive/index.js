@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LoadMore } from 'styles/components';
 import Post from '../Post';
-import styles from './Archive.scss';
 
 const Archive = ({ variables, fetchMore = null, posts: { pageInfo, edges } }) => [
-  <ul>
+  <ul key="list">
     {edges.map(({ cursor, node }) =>
       <li key={cursor}>
         <Post post={node} />
@@ -13,8 +13,8 @@ const Archive = ({ variables, fetchMore = null, posts: { pageInfo, edges } }) =>
   </ul>,
   fetchMore &&
     pageInfo.hasNextPage &&
-    <button
-      className={styles.button}
+    <LoadMore
+      key="button"
       onClick={() =>
         fetchMore({
           variables: {
@@ -38,7 +38,7 @@ const Archive = ({ variables, fetchMore = null, posts: { pageInfo, edges } }) =>
         })}
     >
       MORE
-    </button>,
+    </LoadMore>,
 ];
 
 Archive.propTypes = {

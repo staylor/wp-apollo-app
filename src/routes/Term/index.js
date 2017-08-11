@@ -7,7 +7,7 @@ import Error from 'components/Error';
 import Loading from 'components/Loading';
 import TermQuery from 'graphql/Term_Query.graphql';
 import { SITE_URL } from 'utils/constants';
-import styles from './Term.scss';
+import { ContentWrapper, ArchiveHeader } from 'styles/components';
 
 @graphql(TermQuery, {
   options: ({ params: { slug, tag = null } }) => {
@@ -50,7 +50,7 @@ export default class Term extends Component {
     const url = `${SITE_URL}/${term.taxonomy.rewrite.slug}/${term.slug}`;
 
     return (
-      <div className={styles.sections}>
+      <ContentWrapper>
         <Helmet>
           <title>
             {title}
@@ -59,11 +59,11 @@ export default class Term extends Component {
           <meta property="og:title" content={title} />
           <meta property="og:url" content={url} />
         </Helmet>
-        <h2 className={styles.label}>
+        <ArchiveHeader>
           {title}
-        </h2>
+        </ArchiveHeader>
         <Archive {...{ posts, fetchMore, variables }} />
-      </div>
+      </ContentWrapper>
     );
   }
 }

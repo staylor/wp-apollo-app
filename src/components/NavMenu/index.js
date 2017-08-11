@@ -1,10 +1,12 @@
 import url from 'url';
-import cn from 'classnames';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'found';
 import { sortOrderedHierarchy } from 'utils/walker';
+import styled from 'emotion/react';
 import styles from './NavMenu.scss';
+
+const NavItem = styled.li`display: inline-block;`;
 
 export default class NavMenu extends Component {
   static propTypes = {
@@ -48,12 +50,12 @@ export default class NavMenu extends Component {
       this.level += 1;
     }
     return (
-      <li key={id} className={cn(styles.navItem, styles[`level${this.level}`])}>
+      <NavItem key={id}>
         <Link to={path}>
           {title}
         </Link>
         {this.sorted[id] ? this.walk(this.sorted[id]) : null}
-      </li>
+      </NavItem>
     );
   }
 

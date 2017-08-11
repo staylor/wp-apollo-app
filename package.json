@@ -12,6 +12,7 @@
     "compression": "^1.7.0",
     "debounce": "^1.0.2",
     "dotenv": "^4.0.0",
+    "emotion": "^7.0.13",
     "express": "^4.15.4",
     "farce": "^0.2.1",
     "found": "^0.3.3",
@@ -35,7 +36,7 @@
     "universal-cookie-express": "^2.0.6"
   },
   "scripts": {
-    "dev": "kyt dev",
+    "dev": "GQL_HOST=http://localhost:8080 kyt dev",
     "build": "kyt build",
     "start": "kyt start",
     "test": "kyt test",

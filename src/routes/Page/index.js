@@ -7,7 +7,7 @@ import Error from 'components/Error';
 import Loading from 'components/Loading';
 import PageQuery from 'graphql/Page_Query.graphql';
 import { SITE_URL } from 'utils/constants';
-import styles from './Page.scss';
+import { H1, ArticleWrapper } from 'styles/components';
 
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prefer-stateless-function */
@@ -29,28 +29,28 @@ export default class Page extends Component {
   };
 
   render() {
-    const { data: { error, loading } } = this.props;
+    const { data: { error, loading, viewer } } = this.props;
     if (error) {
       return <Error />;
     } else if (loading) {
       return <Loading />;
+    } else if (!viewer.page) {
+      return <Error />;
     }
 
     const {
-      viewer: {
-        page: {
-          slug,
-          title: { rendered: title },
-          content: { rendered: content },
-          featuredMedia,
-        },
+      page: {
+        slug,
+        title: { rendered: title },
+        content: { rendered: content },
+        featuredMedia,
       },
-    } = this.props.data;
+    } = viewer;
     const url = `${SITE_URL}/${slug}`;
     const featuredImage = (featuredMedia && featuredMedia.sourceUrl) || null;
 
     return (
-      <article className={styles.content}>
+      <ArticleWrapper>
         <Helmet>
           <title>
             {title}
@@ -64,11 +64,22 @@ export default class Page extends Component {
           {featuredImage && <meta name="twitter:image" content={featuredImage} />}
         </Helmet>
         <header>
-          <h1 className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
+          <H1 dangerouslySetInnerHTML={{ __html: title }} />
         </header>
         {featuredMedia && <Media media={featuredMedia} crop={'large'} />}
-        <section dangerouslySetInnerHTML={{ __html: content }} />
-      </article>
+        <section
+          css={`
+            & h2 {
+              margin: 0 0 5px;
+            }
+
+            & p {
+              margin: 0 0 20px;
+            }
+          `}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
+      </ArticleWrapper>
     );
   }
 }

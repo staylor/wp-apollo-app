@@ -13,28 +13,6 @@
   }
 }
 
-.paragraph {
-  margin: 0 0 20px;
-}
-
-.image {
-  display: block;
-  max-width: 100%;
-}
-
-.content {
-  p {
-    margin: 0 0 20px;
-  }
-}
-
-.footer {
-  a {
-    display: inline-block;
-    margin: 0 0 0 5px;
-  }
-}
-
 .embed {
   @include embed();
 }
