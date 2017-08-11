@@ -7,9 +7,7 @@ export default function Error() {
       <header>
         <h1 className={styles.title}>Not Found</h1>
       </header>
-      <section>
-        <p>Sorry not sorry.</p>
-      </section>
+      <p>Sorry not sorry.</p>
     </article>
   );
 }

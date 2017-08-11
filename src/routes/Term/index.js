@@ -59,13 +59,10 @@ export default class Term extends Component {
           <meta property="og:title" content={title} />
           <meta property="og:url" content={url} />
         </Helmet>
-        {term &&
-          <section>
-            <h2 className={styles.label}>
-              {title}
-            </h2>
-            <Archive {...{ posts, fetchMore, variables }} />
-          </section>}
+        <h2 className={styles.label}>
+          {title}
+        </h2>
+        <Archive {...{ posts, fetchMore, variables }} />
       </div>
     );
   }

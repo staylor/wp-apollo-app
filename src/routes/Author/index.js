@@ -40,12 +40,10 @@ export default class Author extends Component {
     const { variables, fetchMore, viewer: { author, posts } } = this.props.data;
     return (
       <div className={styles.sections}>
-        <section>
-          <h2 className={styles.header}>
-            {author.name}
-          </h2>
-          <Archive {...{ posts, fetchMore, variables }} />
-        </section>
+        <h2 className={styles.header}>
+          {author.name}
+        </h2>
+        <Archive {...{ posts, fetchMore, variables }} />
       </div>
     );
   }

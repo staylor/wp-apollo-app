@@ -68,11 +68,9 @@ export default class Walker extends Component {
     const { comments: { edges } } = this.props;
     this.sorted = sortHierarchy(edges);
     this.level = 0;
-    return (
-      <section>
-        {this.walk(this.sorted.top)}
-        {!this.state.replyTo && <Form setReplyTo={this.setReplyTo} />}
-      </section>
-    );
+    return [
+      this.walk(this.sorted.top),
+      !this.state.replyTo && <Form setReplyTo={this.setReplyTo} />,
+    ];
   }
 }

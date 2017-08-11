@@ -85,34 +85,32 @@ export default class Search extends Component {
           <title>Search Results</title>
           <link rel="canonical" href={`${SITE_URL}/search`} />
         </Helmet>
-        <section>
-          <section className={styles.box}>
-            <h2 className={styles.label}>
-              {title}
-            </h2>
-            <form>
-              <label className={styles.a11y} htmlFor="field-term">
-                Search Term
-              </label>
-              <input
-                ref={input => {
-                  this.input = input;
-                }}
-                className={styles.input}
-                type="search"
-                id="field-term"
-                name="term"
-                value={this.state.term}
-                onChange={this.onChange}
-              />
-            </form>
-            {searching && <Loading />}
-          </section>
-          {viewer &&
-            viewer.posts &&
-            !loading &&
-            <Archive {...{ variables, posts: viewer.posts, fetchMore }} />}
+        <section className={styles.box}>
+          <h2 className={styles.label}>
+            {title}
+          </h2>
+          <form>
+            <label className={styles.a11y} htmlFor="field-term">
+              Search Term
+            </label>
+            <input
+              ref={input => {
+                this.input = input;
+              }}
+              className={styles.input}
+              type="search"
+              id="field-term"
+              name="term"
+              value={this.state.term}
+              onChange={this.onChange}
+            />
+          </form>
+          {searching && <Loading />}
         </section>
+        {viewer &&
+          viewer.posts &&
+          !loading &&
+          <Archive {...{ variables, posts: viewer.posts, fetchMore }} />}
       </div>
     );
   }

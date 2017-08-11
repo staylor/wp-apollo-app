@@ -62,12 +62,10 @@ export default class DateRoute extends Component {
           </title>
           <link rel="canonical" href={`${SITE_URL}/${path}`} />
         </Helmet>
-        <section>
-          <h2 className={styles.label}>
-            {title}
-          </h2>
-          <Archive {...{ posts, fetchMore, variables }} />
-        </section>
+        <h2 className={styles.label}>
+          {title}
+        </h2>
+        <Archive {...{ posts, fetchMore, variables }} />
       </div>
     );
   }
