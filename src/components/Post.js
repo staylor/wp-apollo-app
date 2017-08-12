@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'emotion/react';
+import { withTheme } from 'theming';
 import { routerShape } from 'found/lib/PropTypes';
 import Media from 'components/Media';
 import { convertPlaceholders } from 'utils';
 import { dateRegex } from 'utils/regex';
-import styled from 'emotion/react';
 import { header1, embed } from 'styles/components';
 import PostLink from './PostLink';
 
 /* eslint-disable react/no-danger */
 
-const Title = styled.h1`
+const Article = withTheme(styled.article`margin: 0 0 ${p => p.theme.padding}px;`);
+
+const Title = withTheme(styled.h1`
   composes: ${header1};
   font-size: 18px;
   line-height: 24px;
-  margin: 0 0 10px;
+  margin: 0 0 ${p => p.theme.padding}px;
 
   & a {
-    color: #222;
+    color: ${p => p.theme.colors.subhead};
     text-decoration: none;
   }
-`;
+`);
+
+const Content = withTheme(styled.section`
+  & p {
+    margin: 0 0 ${p => p.theme.padding}px;
+  }
+`);
 
 export default class Post extends Component {
   static propTypes = {
@@ -73,7 +82,7 @@ export default class Post extends Component {
     const postContent = isEmbed ? convertPlaceholders(content, embed) : excerpt;
 
     return (
-      <article>
+      <Article>
         <header>
           <Title>
             <PostLink post={this.props.post} />
@@ -83,16 +92,11 @@ export default class Post extends Component {
           <PostLink post={this.props.post}>
             <Media media={featuredMedia} />
           </PostLink>}
-        <section
-          ref={this.bindRef}
-          css={`
-            p {
-              margin: 0 0 20px;
-            }
-          `}
+        <Content
+          innerRef={this.bindRef}
           dangerouslySetInnerHTML={{ __html: postContent }}
         />
-      </article>
+      </Article>
     );
   }
 }

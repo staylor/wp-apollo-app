@@ -11,11 +11,13 @@ export const header1 = css`
 
 export const H1 = withTheme(styled.h1`composes: ${header1};`);
 
-export const H2 = withTheme(styled.h2`
-  font-family: ${p => p.theme.fonts.futura};
+export const header2 = css`
+  font-family: ${theme.fonts.futura};
   font-size: 24px;
   line-height: 32px;
-`);
+`;
+
+export const H2 = withTheme(styled.h2`composes: ${header2};`);
 
 export const ContentWrapper = styled.div`max-width: 740px;`;
 export const ArticleWrapper = styled.article`max-width: 740px;`;

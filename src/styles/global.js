@@ -11,14 +11,14 @@ export const clear = css`
   }
 `;
 
-export default injectGlobal`
+injectGlobal`
   body {
     background: ${theme.colors.background};
     color: ${theme.colors.dark};
     font-family: ${theme.fonts.body};
     font-size: 13px;
     line-height: 18px;
-    padding: 0 2em;
+    padding: 0 ${theme.padding}px;
     text-rendering: optimizeLegibility;
   }
 
@@ -31,7 +31,7 @@ export default injectGlobal`
   }
 
   blockquote {
-    margin: 0 20px;
+    margin: 0 ${theme.padding}px;
   }
 
   em {

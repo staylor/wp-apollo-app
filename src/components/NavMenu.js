@@ -1,41 +1,40 @@
 import url from 'url';
 import React, { Component } from 'react';
+import styled from 'emotion/react';
 import { withTheme } from 'theming';
 import PropTypes from 'prop-types';
 import { Link } from 'found';
 import { sortOrderedHierarchy } from 'utils/walker';
-import styled from 'emotion/react';
-import { clear } from 'styles/global';
+import responsive from 'styles/responsive';
 
 const Nav = withTheme(styled.nav`
   display: block;
-  float: left;
-  margin: 0 auto 6px;
-  width: 100%;
+  margin: ${p => p.theme.padding / 2}px 0;
 
   & li {
-    float: left;
     position: relative;
   }
 
   & a {
     color: ${p => p.theme.colors.black};
     display: block;
-    line-height: 2em;
-    padding: 0 1.2125em;
+    font-size: 14px;
+    line-height: ${p => p.theme.padding * 1.5}px;
+    padding: 0 ${p => p.theme.padding * 0.75}px;
     text-decoration: none;
     text-transform: uppercase;
+
+    ${responsive.desktop} {
+      font-size: 14px;
+      line-height: ${p => p.theme.padding * 2}px;
+      padding: 0 ${p => p.theme.padding}px;
+    }
   }
 
   & li:hover > a,
   & ul ul :hover > a,
   & a:focus {
-    background: #efefef;
-  }
-
-  & li:hover > a,
-  & a:focus {
-    color: #373737;
+    background: ${p => p.theme.colors.subnav.hoverBackground};
   }
 
   & ul li:hover > ul {
@@ -44,33 +43,28 @@ const Nav = withTheme(styled.nav`
 `);
 
 const Level = withTheme(styled.ul`
-  composes: ${clear};
-
-  font-size: 14px;
-  line-height: 14px;
   list-style: none;
-  margin: 0 0 0 -1em;
-  padding-left: 0;
+  margin: 0 0 0 ${p => p.theme.padding / 2 * -1}px;
 
   & ul {
     display: none;
-    float: left;
-    left: 14px;
-    margin: 0;
+    left: ${p => p.theme.padding}px;
     position: absolute;
-    top: 28px;
-    width: 188px;
+    top: ${p => p.theme.padding * 1.5}px;
     z-index: 99999;
+
+    ${responsive.desktop} {
+      top: ${p => p.theme.padding * 2}px;
+    }
 
     a {
       font-size: 13px;
       line-height: 20px;
-      background: #f9f9f9;
-      border-bottom: 1px dotted #ddd;
+      background: ${p => p.theme.colors.subnav.background};
+      border-bottom: 1px dotted ${p => p.theme.colors.subnav.detail};
       color: ${p => p.theme.colors.dark};
-      font-weight: normal;
       height: auto;
-      padding: 10px;
+      padding: ${p => p.theme.padding / 2}px ${p => p.theme.padding}px;
       width: 168px;
     }
 
@@ -82,12 +76,6 @@ const Level = withTheme(styled.ul`
 `);
 
 const NavItem = styled.li`display: inline-block;`;
-
-//
-// .activeLink {
-//   color: $black;
-//   text-decoration: none;
-// }
 
 export default class NavMenu extends Component {
   static propTypes = {

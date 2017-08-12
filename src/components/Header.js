@@ -4,25 +4,22 @@ import { withTheme } from 'theming';
 import PropTypes from 'prop-types';
 import { Link } from 'found';
 import NavMenu from 'components/NavMenu';
-import { clear } from 'styles/global';
 import { header1 } from 'styles/components';
+import responsive from 'styles/responsive';
 
 const Masthead = withTheme(styled.header`
-  composes: ${clear};
   background: ${p => p.theme.colors.white};
   border-top: 2px solid ${p => p.theme.colors.topBorder};
-  max-width: ${p => p.theme.contentWidth};
+  max-width: ${p => p.theme.contentWidth}px;
+  padding-top: ${p => p.theme.padding * 1.5}px;
   position: relative;
   width: 100%;
   z-index: 9999;
 `);
 
-const Headers = styled.div`overflow: hidden;`;
-
 const Title = withTheme(styled.h1`
   composes: ${header1};
   color: ${p => p.theme.colors.black};
-  float: left;
   font-size: 48px;
   font-weight: ${p => p.theme.weightBold};
   line-height: 72px;
@@ -32,30 +29,41 @@ const Title = withTheme(styled.h1`
     color: ${p => p.theme.colors.black};
     text-decoration: none;
   }
+
+  ${responsive.tablet} {
+    font-size: 56px;
+  }
 `);
 
 const Description = withTheme(styled.h2`
-  bottom: 40%;
   color: ${p => p.theme.colors.subhead};
   font-family: ${p => p.theme.fonts.futura};
-  font-size: 24px;
-  line-height: 24px;
+  font-size: 18px;
+  left: 0;
+  line-height: 18px;
   position: absolute;
   right: 32px;
+  top: ${p => p.theme.padding / 2}px;
+
+  ${responsive.tablet} {
+    font-size: 24px;
+    left: auto;
+    line-height: 24px;
+    right: ${p => p.theme.padding * 2}px;
+    top: ${p => p.theme.padding * 3.5}px;
+  }
 `);
 
 const Header = ({ settings, navMenu }) =>
   <Masthead role="banner">
-    <Headers>
-      <Title>
-        <Link to="/">
-          {settings.title}
-        </Link>
-      </Title>
-      <Description>
-        {settings.description}
-      </Description>
-    </Headers>
+    <Title>
+      <Link to="/">
+        {settings.title}
+      </Link>
+    </Title>
+    <Description>
+      {settings.description}
+    </Description>
     <NavMenu navMenu={navMenu} />
   </Masthead>;
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import styled from 'emotion/react';
+import { withTheme } from 'theming';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import { Link } from 'found';
@@ -16,32 +17,51 @@ import { convertPlaceholders } from 'utils';
 import { dateRegex } from 'utils/regex';
 import { SITE_URL } from 'utils/constants';
 import { ArticleWrapper, header1, embed } from 'styles/components';
+import responsive from 'styles/responsive';
 
 /* eslint-disable react/no-danger */
 
 const iframe = css`margin: 0 0 20px;`;
 
-const Title = styled.h1`
+const Title = withTheme(styled.h1`
   composes: ${header1};
-  clear: both;
-  font-size: 36px;
+  font-size: 24px;
   font-weight: bold;
-  line-height: 42px;
-  margin: 0 0 10px;
-`;
+  line-height: 30px;
+  margin: 0 0 ${p => p.theme.padding}px;
 
-const Tag = styled(Link)`
-  display: inline-block;
-  margin: 0 0 0 5px;
-`;
+  ${responsive.tablet} {
+    font-size: 36px;
+    line-height: 42px;
+  }
+`);
 
-const Meta = styled.div`
+const Meta = withTheme(styled.div`
   clear: both;
-  color: #666;
+  color: ${p => p.theme.colors.meta};
   font-size: 12px;
   line-height: 18px;
-  margin-bottom: 10px;
-`;
+  margin-bottom: ${p => p.theme.padding}px;
+`);
+
+const Content = withTheme(styled.section`
+  & h2 {
+    font-family: ${p => p.theme.fonts.futura};
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: ${p => p.theme.weightBold};
+    margin: 0 0 ${p => p.theme.padding / 2}px;
+  }
+
+  & p {
+    margin: 0 0 ${p => p.theme.padding}px;
+  }
+`);
+
+const Tag = withTheme(styled(Link)`
+  display: inline-block;
+  margin: 0 0 0 ${p => p.theme.padding / 4}px;
+`);
 
 @graphql(SingleQuery, {
   options: ({ params: { slug } }) => ({
@@ -159,17 +179,8 @@ export default class Single extends Component {
           </Meta>
         </header>
         {featuredMedia && <Media media={featuredMedia} crop={'large'} />}
-        <section
-          css={`
-            & h2 {
-              margin: 0 0 5px;
-            }
-
-            & p {
-              margin: 0 0 20px;
-            }
-          `}
-          ref={this.bindRef}
+        <Content
+          innerRef={this.bindRef}
           dangerouslySetInnerHTML={{
             __html: convertPlaceholders(content, embed),
           }}

@@ -2,14 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'emotion';
 import styled from 'emotion/react';
+import { withTheme } from 'theming';
 import theme from 'styles/theme';
 import { uppercaseHeader } from 'styles/components';
 
 /* eslint-disable react/no-danger */
 
+const Widget = withTheme(styled.li`margin: 0 0 ${p => p.theme.padding * 2}px;`);
+
 const title = css`
   composes: ${uppercaseHeader};
-  margin: 0 0 16px;
+  margin: 0 0 ${theme.padding}px;
 `;
 
 const goToThis = css`
@@ -23,19 +26,17 @@ const goToThis = css`
   }
 
   & ol {
-    margin: 16px 0;
+    margin: ${theme.padding}px 0;
   }
 
   & li {
-    padding: 8px 0;
+    margin: ${theme.padding / 2}px 0;
     border-top: 3px solid ${theme.colors.detail};
   }
 `;
 
 const transformStyles = (classname, html) =>
   html.replace(/widget-title/g, title).replace(/widget_go_to_this/g, goToThis);
-
-const Widget = styled.li`margin: 0 0 24px;`;
 
 const Sidebar = ({ sidebar }) =>
   <ul>

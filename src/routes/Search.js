@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'emotion/react';
+import { withTheme } from 'theming';
 import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
 import Archive from 'components/Archive';
@@ -8,17 +10,20 @@ import Loading from 'components/Loading';
 import SearchQuery from 'graphql/Search_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 import debounce from 'debounce';
-import styled from 'emotion/react';
 import { ContentWrapper, ArchiveHeader } from 'styles/components';
 
-const SearchInput = styled.input`
-  border: 1px solid #eee;
+const Section = styled.section`margin-bottom: 40px;`;
+
+const SearchInput = withTheme(styled.input`
+  border: 1px solid ${p => p.theme.colors.detail};
   display: block;
   font-size: 16px;
   line-height: 20px;
   padding: 8px;
   width: 100%;
-`;
+`);
+
+const A11Y = styled.label`display: none;`;
 
 @graphql(SearchQuery, {
   options: {
@@ -95,14 +100,12 @@ export default class Search extends Component {
           <title>Search Results</title>
           <link rel="canonical" href={`${SITE_URL}/search`} />
         </Helmet>
-        <section css={`margin-bottom: 40px;`}>
-          <ArchiveHeader>
-            {title}
-          </ArchiveHeader>
+        <ArchiveHeader>
+          {title}
+        </ArchiveHeader>
+        <Section>
           <form>
-            <label css={`display: none`} htmlFor="field-term">
-              Search Term
-            </label>
+            <A11Y htmlFor="field-term">Search Term</A11Y>
             <SearchInput
               innerRef={input => {
                 this.input = input;
@@ -115,7 +118,7 @@ export default class Search extends Component {
             />
           </form>
           {searching && <Loading />}
-        </section>
+        </Section>
         {viewer &&
           viewer.posts &&
           !loading &&

@@ -9,21 +9,6 @@ import { clear } from 'styles/global';
 import { withTheme } from 'theming';
 import { ArticleWrapper, header1 } from 'styles/components';
 
-const Image = styled.img`
-  display: block;
-  float: left;
-  margin: 0 10px 0 0;
-`;
-
-const List = styled.ol`list-style: decimal;`;
-
-const Item = styled.li`
-  composes: ${clear};
-  display: list-item;
-  margin: 10px 0 10px 20px;
-  padding: 0 0 0 7px;
-`;
-
 const Title = withTheme(styled.h1`
   composes: ${header1};
   clear: both;
@@ -37,6 +22,21 @@ const Title = withTheme(styled.h1`
     text-decoration: none;
   }
 `);
+
+const List = styled.ol`list-style: decimal;`;
+
+const Item = styled.li`
+  composes: ${clear};
+  display: list-item;
+  margin: 10px 0 10px 20px;
+  padding: 0 0 0 7px;
+`;
+
+const Image = styled.img`
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;
+`;
 
 @graphql(ChartQuery)
 export default class Chart extends Component {

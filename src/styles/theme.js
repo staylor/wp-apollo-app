@@ -13,7 +13,13 @@ export default {
     dark: '#444',
     detail: '#eee',
     inactive: '#767676',
-    subhead: '#7a7a7a',
+    subhead: '#222',
+    meta: '#666',
+    subnav: {
+      background: '#f9f9f9',
+      details: '#ddd',
+      hoverBackground: '#efefef',
+    },
   },
 
   contentWidth: 1080,

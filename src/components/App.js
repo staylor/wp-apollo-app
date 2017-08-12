@@ -11,7 +11,8 @@ import Sidebar from 'components/Sidebar';
 import Footer from 'components/Footer';
 import AppQuery from 'graphql/App_Query.graphql';
 import theme from 'styles/theme';
-import { clear } from 'styles/global';
+import responsive from 'styles/responsive';
+import 'styles/global';
 
 const PageWrapper = withTheme(styled.div`
   background: ${p => p.theme.colors.white};
@@ -20,19 +21,23 @@ const PageWrapper = withTheme(styled.div`
   padding: 0 ${p => p.theme.padding}px;
 `);
 
-const Content = styled.div`
-  composes: ${clear};
-  padding: 2em 0;
-`;
+const Content = withTheme(styled.div`
+  padding: ${p => p.theme.padding}px 0;
+  ${responsive.desktop} {
+    display: flex;
+    margin-right: ${p => p.theme.padding}px;
+  }
+`);
 
-const Primary = styled.section`
-  float: left;
-  width: 78%;
-`;
+const Primary = styled.section`${responsive.desktop} {flex: 4;}`;
 
 const Secondary = styled.section`
-  float: right;
-  width: 20%;
+  display: block;
+  min-height: 212px;
+  min-width: 212px;
+  ${responsive.desktop} {
+    flex: 1;
+  }
 `;
 
 const langCache = {};
