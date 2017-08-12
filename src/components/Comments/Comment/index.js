@@ -1,18 +1,88 @@
 import React, { Component } from 'react';
+import { css } from 'emotion';
+import styled from 'emotion/react';
+import { withTheme } from 'theming';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import md5 from 'md5';
 import { withCookies, Cookies } from 'react-cookie';
 import { intlShape } from 'react-intl';
 import withIntl from 'decorators/withIntl';
+import { clear } from 'styles/global';
+import theme from 'styles/theme';
 import EditComment from './Edit';
 import DeleteButton from './DeleteButton';
 import { AUTHOR_EMAIL_COOKIE } from '../constants';
 import { CommentType } from '../types';
-import styles from './Comment.scss';
 
 /* eslint-disable react/no-danger */
 /* eslint-disable react/forbid-prop-types */
+
+const Wrapper = withTheme(styled.div`
+  border-bottom: 1px solid ${p => p.theme.colors.detail};
+  position: relative;
+`);
+
+const Meta = styled.div`composes: ${clear};`;
+
+const Image = styled.img`
+  float: left;
+  margin: 0 10px 10px 0;
+`;
+
+const Content = styled.div`
+  p {
+    font-size: 12px;
+    line-height: 15px;
+  }
+`;
+
+const Reply = styled.button`
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  &:active,
+  &:focus {
+    outline: 0 none;
+  }
+`;
+
+const Actions = styled.div`margin: 5px 0;`;
+
+const active = css`color: ${theme.colors.pink};`;
+
+const EditButton = withTheme(styled.button`
+  background: transparent;
+  border: 1px solid ${p => p.theme.colors.detail};
+  cursor: pointer;
+  transition: 600ms;
+
+  &:hover {
+    border: 1px solid ${p => p.theme.colors.dark};
+  }
+
+  &:active,
+  &:focus {
+    outline: 0 none;
+  }
+`);
+
+const Author = withTheme(styled.span`
+  display: block;
+  text-transform: uppercase;
+
+  a {
+    color: ${p => p.theme.colors.dark};
+  }
+`);
+const Time = styled.span`display: block;`;
 
 @withIntl
 @withCookies
@@ -68,15 +138,13 @@ export default class Comment extends Component {
 
   render() {
     const {
-      comment: {
-        id,
-        date,
-        authorUrl,
-        authorName,
-        authorAvatarUrls,
-        content: { rendered: content },
-      },
-    } = this.props;
+      id,
+      date,
+      authorUrl,
+      authorName,
+      authorAvatarUrls,
+      content: { rendered: content },
+    } = this.props.comment;
     const avatar = authorAvatarUrls && authorAvatarUrls.find(data => data.size === 48);
     let authorDisplay = authorName;
     if (authorUrl) {
@@ -97,40 +165,34 @@ export default class Comment extends Component {
         />
       );
     } else {
-      commentContent = (
-        <div className={styles.content} dangerouslySetInnerHTML={{ __html: content }} />
-      );
+      commentContent = <Content dangerouslySetInnerHTML={{ __html: content }} />;
     }
 
     return (
-      <div className={styles.comment}>
-        <div className={styles.meta}>
-          {avatar ? <img alt="" className={styles.image} src={avatar.url} /> : null}
-          <span className={styles.author}>
+      <Wrapper>
+        <Meta>
+          {avatar ? <Image alt="" src={avatar.url} /> : null}
+          <Author>
             {authorDisplay}
-          </span>
-          <span className={styles.time}>
+          </Author>
+          <Time>
             {this.props.intl.formatRelative(date)}
-          </span>
-        </div>
+          </Time>
+        </Meta>
         {commentContent}
-        <button
-          className={cn(styles.reply, {
-            [styles.active]: this.props.active,
-          })}
+        <Reply
+          className={cn({ [active]: this.props.active })}
           onClick={() => this.onClick(id)}
         >
           ↵
-        </button>
+        </Reply>
         {this.viewerOwns() &&
           !this.state.editing &&
-          <div className={styles.actions}>
-            <button className={styles.edit} onClick={this.onEditClick}>
-              Edit
-            </button>
+          <Actions>
+            <EditButton onClick={this.onEditClick}>Edit</EditButton>
             <DeleteButton editToken={this.editToken} comment={this.props.comment} />
-          </div>}
-      </div>
+          </Actions>}
+      </Wrapper>
     );
   }
 }

@@ -51,3 +51,7 @@ app.use(
 );
 
 app.listen(parseInt(KYT.SERVER_PORT, 10));
+
+process.on('unhandledRejection', error => {
+  console.log('unhandledRejection', error);
+});

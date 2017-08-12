@@ -4,10 +4,23 @@ import { routerShape } from 'found/lib/PropTypes';
 import Media from 'components/Media';
 import { convertPlaceholders } from 'utils';
 import { dateRegex } from 'utils/regex';
+import styled from 'emotion/react';
+import { header1, embed } from 'styles/components';
 import PostLink from './PostLink';
-import styles from './Post.scss';
 
 /* eslint-disable react/no-danger */
+
+const Title = styled.h1`
+  composes: ${header1};
+  font-size: 18px;
+  line-height: 24px;
+  margin: 0 0 10px;
+
+  & a {
+    color: #222;
+    text-decoration: none;
+  }
+`;
 
 export default class Post extends Component {
   static propTypes = {
@@ -32,7 +45,7 @@ export default class Post extends Component {
   };
 
   componentDidMount() {
-    const nodes = this.content.querySelectorAll(`figure.${styles.embed}`);
+    const nodes = this.content.querySelectorAll(`figure.${embed}`);
     if (!nodes) {
       return;
     }
@@ -57,14 +70,14 @@ export default class Post extends Component {
     } = this.props.post;
 
     const isEmbed = content.indexOf('<figure') === 0;
-    const postContent = isEmbed ? convertPlaceholders(content, styles) : excerpt;
+    const postContent = isEmbed ? convertPlaceholders(content, embed) : excerpt;
 
     return (
       <article>
         <header>
-          <h1 className={styles.title}>
+          <Title>
             <PostLink post={this.props.post} />
-          </h1>
+          </Title>
         </header>
         {featuredMedia &&
           <PostLink post={this.props.post}>
@@ -73,7 +86,7 @@ export default class Post extends Component {
         <section
           ref={this.bindRef}
           css={`
-            & p {
+            p {
               margin: 0 0 20px;
             }
           `}

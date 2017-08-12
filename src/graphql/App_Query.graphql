@@ -1,12 +1,11 @@
+#import "./Settings_settings.graphql"
 #import "./NavMenu_navMenu.graphql"
 #import "./Sidebar_sidebar.graphql"
 
 query App_Query($menuID: ID!, $sidebarID: ID!) {
   viewer {
     settings {
-      title
-      description
-      language
+      ...Settings_settings
     }
     navMenu(id: $menuID) {
       ...NavMenu_navMenu

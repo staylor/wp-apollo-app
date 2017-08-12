@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { css } from 'emotion';
 import styled from 'emotion/react';
 import { sortHierarchy } from 'utils/walker';
-import Form from '../Form';
-import Comment from '../Comment';
-import { CommentConnectionType } from '../types';
+import Form from './Form';
+import Comment from './Comment';
+import { CommentConnectionType } from './types';
 
 const nested = css`margin: 20px 0 20px 20px;`;
 const ListItem = styled.li`margin: 10px 0 20px;`;
@@ -48,7 +48,7 @@ export default class Walker extends Component {
 
   walk(node) {
     return (
-      <ul className={this.level ? nested : null}>
+      <ul key={`level-${this.level}`} className={this.level ? nested : null}>
         {node.map(child => {
           if (!child.parent) {
             this.level = 0;
@@ -61,11 +61,7 @@ export default class Walker extends Component {
 
   render() {
     if (!this.props.comments) {
-      return (
-        <section>
-          <Form setReplyTo={this.setReplyTo} />
-        </section>
-      );
+      return <Form setReplyTo={this.setReplyTo} />;
     }
 
     const { comments: { edges } } = this.props;
@@ -73,7 +69,7 @@ export default class Walker extends Component {
     this.level = 0;
     return [
       this.walk(this.sorted.top),
-      !this.state.replyTo && <Form setReplyTo={this.setReplyTo} />,
+      !this.state.replyTo && <Form key="form" setReplyTo={this.setReplyTo} />,
     ];
   }
 }

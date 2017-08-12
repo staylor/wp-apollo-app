@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'emotion/react';
+import { withTheme } from 'theming';
 import { graphql } from 'react-apollo';
 import { Link } from 'found';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import HomeQuery from 'graphql/Home_Query.graphql';
-import { clear, futura, uppercaseHeader } from 'styles/components';
+import { clear, uppercaseHeader } from 'styles/components';
 
 const HomeWrapper = styled.div`composes: ${clear};`;
 const HomeSection = styled.section`margin: 0 0 40px;`;
@@ -25,14 +26,14 @@ const ColumnB = styled.div`
   width: 60%;
 `;
 
-const MoreIn = styled(Link)`
-  composes: ${futura};
-  color: #000;
+const MoreIn = withTheme(styled(Link)`
+  font-family: ${p => p.theme.fonts.futura};
+  color: ${p => p.theme.colors.black};
   display: block;
-  font-weight: 700;
+  font-weight: ${p => p.theme.weightBold};
   margin-bottom: 30px;
   text-transform: uppercase;
-`;
+`);
 
 @graphql(HomeQuery, {
   options: {

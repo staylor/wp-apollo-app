@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
+import { css } from 'emotion';
+import styled from 'emotion/react';
 import PropTypes from 'prop-types';
-import { CommentType } from '../../types';
+import { ResetButton, formField } from 'styles/components';
+import { CommentType } from '../types';
 import SubmitButton from './SubmitButton';
-import styles from './Edit.scss';
+
+const Form = styled.form`margin: 0 0 20px;`;
+
+const cancel = css`
+  margin: 0 5px;
+`;
 
 export default class Edit extends Component {
   static propTypes = {
@@ -28,9 +36,9 @@ export default class Edit extends Component {
   render() {
     const { comment, token, onEditSubmit } = this.props;
     return (
-      <form onSubmit={e => e.preventDefault()} className={styles.form}>
+      <Form onSubmit={e => e.preventDefault()}>
         <textarea
-          className={styles.content}
+          className={formField}
           rows="6"
           name="content"
           value={this.state.content}
@@ -40,10 +48,10 @@ export default class Edit extends Component {
           content={this.state.content}
           {...{ comment, token, onEditSubmit }}
         />
-        <button type="reset" className={styles.cancel} onClick={this.props.onEditSubmit}>
+        <ResetButton className={cancel} type="reset" onClick={this.props.onEditSubmit}>
           Cancel
-        </button>
-      </form>
+        </ResetButton>
+      </Form>
     );
   }
 }

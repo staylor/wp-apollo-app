@@ -4,9 +4,39 @@ import { graphql } from 'react-apollo';
 import Loading from 'components/Loading';
 import Error from 'components/Error';
 import ChartQuery from 'graphql/Chart_Query.graphql';
-import styles from './Chart.scss';
+import styled from 'emotion/react';
+import { clear } from 'styles/global';
+import { withTheme } from 'theming';
+import { ArticleWrapper, header1 } from 'styles/components';
 
-/* eslint-disable react/prefer-stateless-function */
+const Image = styled.img`
+  display: block;
+  float: left;
+  margin: 0 10px 0 0;
+`;
+
+const List = styled.ol`list-style: decimal;`;
+
+const Item = styled.li`
+  composes: ${clear};
+  display: list-item;
+  margin: 10px 0 10px 20px;
+  padding: 0 0 0 7px;
+`;
+
+const Title = withTheme(styled.h1`
+  composes: ${header1};
+  clear: both;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 42px;
+  margin: 0 0 10px;
+
+  & a {
+    color: ${p => p.theme.colors.dark};
+    text-decoration: none;
+  }
+`);
 
 @graphql(ChartQuery)
 export default class Chart extends Component {
@@ -32,29 +62,28 @@ export default class Chart extends Component {
     }
 
     return (
-      <article className={styles.content}>
+      <ArticleWrapper>
         <header>
-          <h1 className={styles.title}>
+          <Title>
             <a href={chart.authorUri}>
               {chart.authorName}
             </a>
-          </h1>
+          </Title>
         </header>
-        <ol className={styles.list}>
+        <List>
           {chart.items.map(({ title, url, artist, releaseDateFormatted, images }) =>
-            <li key={url} className={styles.item}>
-              {images.length &&
-                <img src={images[0].url} alt="" className={styles.image} />}
+            <Item key={url}>
+              {images.length && <Image src={images[0].url} alt="" />}
               <a href={url} target="_blank" rel="noopener noreferrer">
                 {title} - {artist}
               </a>
               <p>
                 <strong>Released:</strong> {releaseDateFormatted}
               </p>
-            </li>
+            </Item>
           )}
-        </ol>
-      </article>
+        </List>
+      </ArticleWrapper>
     );
   }
 }

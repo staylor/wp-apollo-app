@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import styled from 'emotion/react';
 import PropTypes from 'prop-types';
 import SingleQuery from 'graphql/Single_Query.graphql';
+import { ArchiveHeader } from 'styles/components';
 import Walker from './Walker';
 import { CommentConnectionType } from './types';
 import { COMMENTS_PER_PAGE } from './constants';
-import styles from './Comments.scss';
+
+const Aside = styled.aside`
+  max-width: 100%;
+  width: 450px;
+`;
 
 export default class Comments extends Component {
   static propTypes = {
@@ -43,10 +49,10 @@ export default class Comments extends Component {
   render() {
     const { comments } = this.props;
     return (
-      <aside className={styles.comments}>
-        <h2 className={styles.header}>Comments</h2>
+      <Aside>
+        <ArchiveHeader>Comments</ArchiveHeader>
         <Walker comments={comments} />
-      </aside>
+      </Aside>
     );
   }
 }

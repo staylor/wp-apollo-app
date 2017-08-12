@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { css } from 'emotion';
 import styled from 'emotion/react';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
@@ -14,10 +15,20 @@ import SingleQuery from 'graphql/Single_Query.graphql';
 import { convertPlaceholders } from 'utils';
 import { dateRegex } from 'utils/regex';
 import { SITE_URL } from 'utils/constants';
-import { ArticleWrapper } from 'styles/components';
-import styles from './Single.scss';
+import { ArticleWrapper, header1, embed } from 'styles/components';
 
 /* eslint-disable react/no-danger */
+
+const iframe = css`margin: 0 0 20px;`;
+
+const Title = styled.h1`
+  composes: ${header1};
+  clear: both;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 42px;
+  margin: 0 0 10px;
+`;
 
 const Tag = styled(Link)`
   display: inline-block;
@@ -59,7 +70,7 @@ export default class Single extends Component {
       return;
     }
 
-    const nodes = this.content.querySelectorAll(`figure.${styles.embed}`);
+    const nodes = this.content.querySelectorAll(`figure.${embed}`);
     if (!nodes) {
       return;
     }
@@ -76,7 +87,7 @@ export default class Single extends Component {
         let height = data.height;
         let html = data.html;
         if (html.indexOf('<iframe') === 0) {
-          html = html.replace(/<iframe /, `<iframe class="${styles.iframe}" `);
+          html = html.replace(/<iframe /, `<iframe class="${iframe}" `);
           if (width < maxWidth) {
             height = Math.ceil(height * maxWidth / width);
             width = maxWidth;
@@ -136,7 +147,7 @@ export default class Single extends Component {
           {featuredImage && <meta name="twitter:image" content={featuredImage} />}
         </Helmet>
         <header>
-          <h1 className={styles.title} dangerouslySetInnerHTML={{ __html: title }} />
+          <Title dangerouslySetInnerHTML={{ __html: title }} />
           <Meta>
             Posted:{' '}
             <Link to={`/${year}/${month}`}>
@@ -160,7 +171,7 @@ export default class Single extends Component {
           `}
           ref={this.bindRef}
           dangerouslySetInnerHTML={{
-            __html: convertPlaceholders(content, styles),
+            __html: convertPlaceholders(content, embed),
           }}
         />
         {tags &&

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LoadMore } from 'styles/components';
-import Post from '../Post';
+import Post from './Post';
 
 const Archive = ({ variables, fetchMore = null, posts: { pageInfo, edges } }) => [
   <ul key="list">
