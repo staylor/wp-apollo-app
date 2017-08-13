@@ -4,6 +4,21 @@ const introspectionQueryResultData = {
   __schema: {
     types: [
       {
+        kind: 'UNION',
+        name: 'ContentNode',
+        possibleTypes: [
+          {
+            name: 'Element',
+          },
+          {
+            name: 'Text',
+          },
+          {
+            name: 'Embed',
+          },
+        ],
+      },
+      {
         kind: 'INTERFACE',
         name: 'Node',
         possibleTypes: [
