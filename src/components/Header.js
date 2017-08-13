@@ -22,7 +22,6 @@ const Title = withTheme(styled.h1`
   font-size: 48px;
   font-weight: ${p => p.theme.weightBold};
   line-height: 72px;
-  padding: 2.6% 0 0;
 
   & a {
     color: ${p => p.theme.colors.black};

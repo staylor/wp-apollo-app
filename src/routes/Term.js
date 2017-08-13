@@ -7,7 +7,7 @@ import Error from 'components/Error';
 import Loading from 'components/Loading';
 import TermQuery from 'graphql/Term_Query.graphql';
 import { SITE_URL } from 'utils/constants';
-import { ContentWrapper, ArchiveHeader } from 'styles/components';
+import { ContentWrapper, Heading } from 'styles/components';
 
 @graphql(TermQuery, {
   options: ({ params: { slug, tag = null } }) => {
@@ -59,9 +59,9 @@ export default class Term extends Component {
           <meta property="og:title" content={title} />
           <meta property="og:url" content={url} />
         </Helmet>
-        <ArchiveHeader>
+        <Heading>
           {title}
-        </ArchiveHeader>
+        </Heading>
         <Archive {...{ posts, fetchMore, variables }} />
       </ContentWrapper>
     );
