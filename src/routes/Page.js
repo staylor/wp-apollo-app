@@ -43,7 +43,7 @@ export default class Page extends Component {
       page: {
         slug,
         title: { rendered: title },
-        content: { rendered: content },
+        content: { data: content },
         featuredMedia,
       },
     } = viewer;

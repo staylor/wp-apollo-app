@@ -26,7 +26,7 @@
     "persistgraphql": "^0.3.2",
     "prop-types": "^15.5.10",
     "react": "16.0.0-beta.5",
-    "react-apollo": "^1.4.11",
+    "react-apollo": "^1.4.12",
     "react-cookie": "^2.0.7",
     "react-dom": "16.0.0-beta.5",
     "react-helmet": "^5.1.3",

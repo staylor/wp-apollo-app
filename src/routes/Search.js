@@ -10,7 +10,7 @@ import Loading from 'components/Loading';
 import SearchQuery from 'graphql/Search_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 import debounce from 'debounce';
-import { ContentWrapper, ArchiveHeader } from 'styles/components';
+import { ContentWrapper, Heading } from 'styles/components';
 
 const Section = styled.section`margin-bottom: 40px;`;
 
@@ -100,9 +100,9 @@ export default class Search extends Component {
           <title>Search Results</title>
           <link rel="canonical" href={`${SITE_URL}/search`} />
         </Helmet>
-        <ArchiveHeader>
+        <Heading>
           {title}
-        </ArchiveHeader>
+        </Heading>
         <Section>
           <form>
             <A11Y htmlFor="field-term">Search Term</A11Y>
