@@ -1,4 +1,4 @@
-#import "./Content_content.graphql"
+#import "./ContentNode_content.graphql"
 #import "./Media_media.graphql"
 #import "./Comments_comments.graphql"
 
@@ -12,7 +12,9 @@ query Single_Query($slug: String!, $commentCount: Int) {
         rendered
       }
       content {
-        ...Content_content
+        data {
+          ...ContentNode_content
+        }
       }
       excerpt {
         raw

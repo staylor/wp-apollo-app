@@ -1,4 +1,4 @@
-#import "./Content_content.graphql"
+#import "./ContentNode_content.graphql"
 #import "./Media_media.graphql"
 
 query Page_Query($slug: String!) {
@@ -10,7 +10,9 @@ query Page_Query($slug: String!) {
         rendered
       }
       content {
-        ...Content_content
+        data {
+          ...ContentNode_content
+        }
       }
       featuredMedia {
         ... on Image {
