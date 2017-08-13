@@ -7,11 +7,10 @@ import ChartQuery from 'graphql/Chart_Query.graphql';
 import styled from 'emotion/react';
 import { clear } from 'styles/global';
 import { withTheme } from 'theming';
-import { ArticleWrapper, header1 } from 'styles/components';
+import { ArticleWrapper } from 'styles/components';
 
 const Title = withTheme(styled.h1`
-  composes: ${header1};
-  clear: both;
+  font-family: ${p => p.theme.fonts.futura};
   font-size: 36px;
   font-weight: bold;
   line-height: 42px;

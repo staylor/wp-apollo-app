@@ -9,14 +9,14 @@ import { Link } from 'found';
 import { FormattedRelative } from 'react-intl';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
+import ContentNode from 'components/ContentNode';
 import Media from 'components/Media';
 import Comments from 'components/Comments';
 import { COMMENTS_PER_PAGE } from 'components/Comments/constants';
 import SingleQuery from 'graphql/Single_Query.graphql';
-import { convertPlaceholders } from 'utils';
 import { dateRegex } from 'utils/regex';
 import { SITE_URL } from 'utils/constants';
-import { ArticleWrapper, header1, embed } from 'styles/components';
+import { ArticleWrapper, ContentSection } from 'styles/components';
 import responsive from 'styles/responsive';
 
 /* eslint-disable react/no-danger */
@@ -24,7 +24,7 @@ import responsive from 'styles/responsive';
 const iframe = css`margin: 0 0 20px;`;
 
 const Title = withTheme(styled.h1`
-  composes: ${header1};
+  font-family: ${p => p.theme.fonts.futura};
   font-size: 24px;
   font-weight: bold;
   line-height: 30px;
@@ -42,20 +42,6 @@ const Meta = withTheme(styled.div`
   font-size: 12px;
   line-height: 18px;
   margin-bottom: ${p => p.theme.padding}px;
-`);
-
-const Content = withTheme(styled.section`
-  & h2 {
-    font-family: ${p => p.theme.fonts.futura};
-    font-size: 24px;
-    line-height: 32px;
-    font-weight: ${p => p.theme.weightBold};
-    margin: 0 0 ${p => p.theme.padding / 2}px;
-  }
-
-  & p {
-    margin: 0 0 ${p => p.theme.padding}px;
-  }
 `);
 
 const Tag = withTheme(styled(Link)`
@@ -85,42 +71,26 @@ export default class Single extends Component {
     this.content = node;
   };
 
-  componentDidMount() {
-    if (!this.content) {
-      return;
-    }
-
-    const nodes = this.content.querySelectorAll(`figure.${embed}`);
-    if (!nodes) {
-      return;
-    }
-
+  onEmbedClick = data => e => {
     const maxWidth = 740;
-    nodes.forEach(node => {
-      node.onclick = e => {
-        e.preventDefault();
+    e.preventDefault();
 
-        const data = JSON.parse(
-          node.querySelector('script[type="application/json"]').innerHTML
-        );
-        let width = data.width;
-        let height = data.height;
-        let html = data.html;
-        if (html.indexOf('<iframe') === 0) {
-          html = html.replace(/<iframe /, `<iframe class="${iframe}" `);
-          if (width < maxWidth) {
-            height = Math.ceil(height * maxWidth / width);
-            width = maxWidth;
-            html = html
-              .replace(/width="[0-9]+"/, `width="${width}"`)
-              .replace(/height="[0-9]+"/, `height="${height}"`);
-          }
-        }
+    let width = data.width;
+    let height = data.height;
+    let html = data.html;
+    if (html.indexOf('<iframe') === 0) {
+      html = html.replace(/<iframe /, `<iframe class="${iframe}" `);
+      if (width < maxWidth) {
+        height = Math.ceil(height * maxWidth / width);
+        width = maxWidth;
+        html = html
+          .replace(/width="[0-9]+"/, `width="${width}"`)
+          .replace(/height="[0-9]+"/, `height="${height}"`);
+      }
+    }
 
-        e.currentTarget.outerHTML = html;
-      };
-    });
-  }
+    e.currentTarget.outerHTML = html;
+  };
 
   render() {
     const { data: { error, loading } } = this.props;
@@ -179,11 +149,10 @@ export default class Single extends Component {
           </Meta>
         </header>
         {featuredMedia && <Media media={featuredMedia} crop={'large'} />}
-        <Content
-          innerRef={this.bindRef}
-          dangerouslySetInnerHTML={{
-            __html: convertPlaceholders(content, embed),
-          }}
+        <ContentNode
+          component={ContentSection}
+          content={content}
+          onEmbedClick={this.onEmbedClick}
         />
         {tags &&
           <footer>

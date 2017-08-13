@@ -1,0 +1,45 @@
+#import "./ContentNode_content_data.graphql"
+
+fragment ContentNode_content on ContentNode {
+  ...ContentNode_content_data
+  ... on Element {
+    children {
+      ...ContentNode_content_data
+      ... on Element {
+        children {
+          ...ContentNode_content_data
+          ... on Element {
+            children {
+              ...ContentNode_content_data
+              ... on Element {
+                children {
+                  ...ContentNode_content_data
+                  ... on Element {
+                    children {
+                      ...ContentNode_content_data
+                      ... on Element {
+                        children {
+                          ...ContentNode_content_data
+                          ... on Element {
+                            children {
+                              ...ContentNode_content_data
+                              ... on Element {
+                                children {
+                                  ...ContentNode_content_data
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

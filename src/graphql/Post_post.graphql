@@ -1,3 +1,4 @@
+#import "./ContentNode_content.graphql"
 #import "./Media_media.graphql"
 #import "./PostLink_post.graphql"
 
@@ -9,10 +10,12 @@ fragment Post_post on Post {
     rendered
   }
   content {
-    rendered
+    data {
+      ...ContentNode_content
+    }
   }
   excerpt {
-    rendered
+    raw
   }
   featuredMedia {
     ...Media_media

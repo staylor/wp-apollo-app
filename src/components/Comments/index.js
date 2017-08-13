@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import styled from 'emotion/react';
+import { withTheme } from 'theming';
 import PropTypes from 'prop-types';
 import SingleQuery from 'graphql/Single_Query.graphql';
-import { ArchiveHeader } from 'styles/components';
+import { Heading } from 'styles/components';
+import responsive from 'styles/responsive';
 import Walker from './Walker';
 import { CommentConnectionType } from './types';
 import { COMMENTS_PER_PAGE } from './constants';
 
-const Aside = styled.aside`
+const Aside = withTheme(styled.aside`
+  margin-top: ${p => p.theme.padding * 3}px;
   max-width: 100%;
-  width: 450px;
-`;
+
+  ${responsive.tablet} {
+    width: 450px;
+  }
+`);
 
 export default class Comments extends Component {
   static propTypes = {
@@ -50,7 +56,7 @@ export default class Comments extends Component {
     const { comments } = this.props;
     return (
       <Aside>
-        <ArchiveHeader>Comments</ArchiveHeader>
+        <Heading>Comments</Heading>
         <Walker comments={comments} />
       </Aside>
     );

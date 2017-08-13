@@ -3,22 +3,6 @@ import styled from 'emotion/react';
 import { withTheme } from 'theming';
 import theme from 'styles/theme';
 
-export const header1 = css`
-  font-family: ${theme.fonts.futura};
-  font-size: 32px;
-  line-height: 40px;
-`;
-
-export const H1 = withTheme(styled.h1`composes: ${header1};`);
-
-export const header2 = css`
-  font-family: ${theme.fonts.futura};
-  font-size: 24px;
-  line-height: 32px;
-`;
-
-export const H2 = withTheme(styled.h2`composes: ${header2};`);
-
 export const ContentWrapper = styled.div`max-width: 740px;`;
 export const ArticleWrapper = styled.article`max-width: 740px;`;
 
@@ -30,32 +14,22 @@ export const uppercaseHeader = css`
   text-transform: uppercase;
 `;
 
-export const ArchiveHeader = styled.h2`
+export const Heading = styled.h2`
   composes: ${uppercaseHeader};
   margin-bottom: 40px;
 `;
 
-export const LoadMore = withTheme(styled.button`
-  appearance: none;
-  background: ${p => p.theme.colors.white};
-  border: 1px solid ${p => p.theme.colors.detail};
-  box-sizing: border-box;
-  color: ${p => p.theme.colors.inactive};
-  cursor: pointer;
-  font-size: 16px;
-  height: 32px;
-  line-height: 16px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 400ms;
-  width: 80px;
+export const ContentSection = withTheme(styled.section`
+  & h2 {
+    font-family: ${p => p.theme.fonts.futura};
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: ${p => p.theme.weightBold};
+    margin: 0 0 ${p => p.theme.padding / 2}px;
+  }
 
-  &:hover,
-  &:active,
-  &:focus {
-    border: 1px solid ${p => p.theme.colors.black};
-    color: ${p => p.theme.colors.black};
-    outline: 0 none;
+  & p {
+    margin: 0 0 ${p => p.theme.padding}px;
   }
 `);
 
@@ -117,12 +91,12 @@ export const embed = css`
   }
 
   &::before {
-    background:  ${theme.colors.pink};
+    background: ${theme.colors.pink};
     border-radius: 10px;
     content: ' ';
     height: 52px;
     left: 50%;
-    margin: -26px 0 0 -38px;
+    margin: -21px 0 0 -48px;
     opacity: 0.8;
     position: absolute;
     top: 50%;
@@ -132,20 +106,21 @@ export const embed = css`
 
   &::after {
     border-bottom: 10px solid transparent;
-    border-left: 20px solid  ${theme.colors.white};
+    border-left: 20px solid ${theme.colors.white};
     border-top: 10px solid transparent;
     content: ' ';
     height: 0;
-    left: calc(50% - 10px);
+    left: calc(50% + 31px);
+    margin: -21px 0 0 -48px;
     position: absolute;
-    top: calc(50% - 10px);
+    top: calc(50% + 16px);
     width: 0;
     z-index: 3;
   }
 
   &:hover {
     &::before {
-      background:  ${theme.colors.black};
+      background: ${theme.colors.black};
     }
   }
 `;

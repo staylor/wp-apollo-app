@@ -4,7 +4,6 @@ import { withTheme } from 'theming';
 import PropTypes from 'prop-types';
 import { Link } from 'found';
 import NavMenu from 'components/NavMenu';
-import { header1 } from 'styles/components';
 import responsive from 'styles/responsive';
 
 const Masthead = withTheme(styled.header`
@@ -18,8 +17,8 @@ const Masthead = withTheme(styled.header`
 `);
 
 const Title = withTheme(styled.h1`
-  composes: ${header1};
   color: ${p => p.theme.colors.black};
+  font-family: ${p => p.theme.fonts.futura};
   font-size: 48px;
   font-weight: ${p => p.theme.weightBold};
   line-height: 72px;

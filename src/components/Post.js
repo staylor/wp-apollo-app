@@ -4,9 +4,8 @@ import styled from 'emotion/react';
 import { withTheme } from 'theming';
 import { routerShape } from 'found/lib/PropTypes';
 import Media from 'components/Media';
-import { convertPlaceholders } from 'utils';
+import ContentNode from 'components/ContentNode';
 import { dateRegex } from 'utils/regex';
-import { header1, embed } from 'styles/components';
 import PostLink from './PostLink';
 
 /* eslint-disable react/no-danger */
@@ -14,7 +13,7 @@ import PostLink from './PostLink';
 const Article = withTheme(styled.article`margin: 0 0 ${p => p.theme.padding}px;`);
 
 const Title = withTheme(styled.h1`
-  composes: ${header1};
+  font-family: ${p => p.theme.fonts.futura};
   font-size: 18px;
   line-height: 24px;
   margin: 0 0 ${p => p.theme.padding}px;
@@ -53,33 +52,19 @@ export default class Post extends Component {
     this.content = node;
   };
 
-  componentDidMount() {
-    const nodes = this.content.querySelectorAll(`figure.${embed}`);
-    if (!nodes) {
-      return;
-    }
-    nodes.forEach(node => {
-      node.onclick = e => {
-        e.preventDefault();
+  onEmbedClick = () => e => {
+    e.preventDefault();
 
-        const { id, date } = this.props.post;
-        const [, year, month, day] = dateRegex.exec(date);
-        const url = `/${year}/${month}/${day}/${id}`;
+    const { id, date } = this.props.post;
+    const [, year, month, day] = dateRegex.exec(date);
+    const url = `/${year}/${month}/${day}/${id}`;
 
-        this.context.router.push(url);
-      };
-    });
-  }
+    this.context.router.push(url);
+  };
 
   render() {
-    const {
-      content: { rendered: content },
-      excerpt: { rendered: excerpt },
-      featuredMedia,
-    } = this.props.post;
-
-    const isEmbed = content.indexOf('<figure') === 0;
-    const postContent = isEmbed ? convertPlaceholders(content, embed) : excerpt;
+    const { content: { data: content }, excerpt, featuredMedia } = this.props.post;
+    const isEmbed = content && content.length && content[0].__typename === 'Embed';
 
     return (
       <Article>
@@ -92,10 +77,15 @@ export default class Post extends Component {
           <PostLink post={this.props.post}>
             <Media media={featuredMedia} />
           </PostLink>}
-        <Content
-          innerRef={this.bindRef}
-          dangerouslySetInnerHTML={{ __html: postContent }}
-        />
+        {isEmbed
+          ? <ContentNode
+              component={Content}
+              content={content}
+              onEmbedClick={this.onEmbedClick}
+            />
+          : <Content>
+              {excerpt.raw}
+            </Content>}
       </Article>
     );
   }

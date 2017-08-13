@@ -31,7 +31,7 @@ const Image = styled.img`
 `;
 
 const Content = styled.div`
-  p {
+  & p {
     font-size: 12px;
     line-height: 15px;
   }
@@ -78,7 +78,7 @@ const Author = withTheme(styled.span`
   display: block;
   text-transform: uppercase;
 
-  a {
+  & a {
     color: ${p => p.theme.colors.dark};
   }
 `);

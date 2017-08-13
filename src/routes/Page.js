@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
+import ContentNode from 'components/ContentNode';
 import Media from 'components/Media';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import PageQuery from 'graphql/Page_Query.graphql';
 import { SITE_URL } from 'utils/constants';
-import { H1, ArticleWrapper } from 'styles/components';
+import { ArticleWrapper, Heading, ContentSection } from 'styles/components';
 
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prefer-stateless-function */
@@ -64,21 +65,10 @@ export default class Page extends Component {
           {featuredImage && <meta name="twitter:image" content={featuredImage} />}
         </Helmet>
         <header>
-          <H1 dangerouslySetInnerHTML={{ __html: title }} />
+          <Heading dangerouslySetInnerHTML={{ __html: title }} />
         </header>
         {featuredMedia && <Media media={featuredMedia} crop={'large'} />}
-        <section
-          css={`
-            & h2 {
-              margin: 0 0 5px;
-            }
-
-            & p {
-              margin: 0 0 20px;
-            }
-          `}
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
+        <ContentNode component={ContentSection} content={content} />
       </ArticleWrapper>
     );
   }

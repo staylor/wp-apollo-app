@@ -5,7 +5,7 @@ import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import AuthorQuery from 'graphql/Author_Query.graphql';
-import { ContentWrapper, ArchiveHeader } from 'styles/components';
+import { ContentWrapper, Heading } from 'styles/components';
 
 /* eslint-disable react/prefer-stateless-function */
 
@@ -40,9 +40,9 @@ export default class Author extends Component {
     const { variables, fetchMore, viewer: { author, posts } } = this.props.data;
     return (
       <ContentWrapper>
-        <ArchiveHeader>
+        <Heading>
           {author.name}
-        </ArchiveHeader>
+        </Heading>
         <Archive {...{ posts, fetchMore, variables }} />
       </ContentWrapper>
     );
