@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PageWrapper, Content, Primary, Secondary } from 'wp-styled-components/lib/App';
+import { PageWrapper, Content, Primary, Secondary, Footer } from 'wp-styled-components/lib/App';
+import Sidebar from 'wp-styled-components/lib/Sidebar';
 import 'wp-styled-components/lib/global';
 import Settings from 'components/Settings';
 import Header from 'components/Header';
-import Sidebar from 'components/Sidebar';
-import Footer from 'components/Footer';
 
 export default function App({ settings, navMenu, sidebar, children }) {
   return (

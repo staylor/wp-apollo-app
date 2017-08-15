@@ -10,7 +10,7 @@ import {
   ColumnB,
   MoreIn,
 } from 'wp-styled-components/lib/Home';
-import Archive from 'components/Archive';
+import Archive from 'containers/Archive';
 import HomeQuery from 'graphql/Home_Query.graphql';
 
 @graphql(HomeQuery, {

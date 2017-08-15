@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
 import { ContentWrapper, Heading, Error, Loading } from 'wp-styled-components';
-import Archive from 'components/Archive';
+import Archive from 'containers/Archive';
 import TermQuery from 'graphql/Term_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 
