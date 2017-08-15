@@ -1,44 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ThemeProvider, withTheme } from 'theming';
-import styled from 'emotion/react';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { graphql } from 'react-apollo';
 import { routerShape } from 'found/lib/PropTypes';
+import {
+  ThemeProvider,
+  PageWrapper,
+  Content,
+  Primary,
+  Secondary,
+} from 'wp-styled-components/lib/App';
+import theme from 'wp-styled-components/lib/theme';
+import 'wp-styled-components/lib/global';
 import Settings from 'components/Settings';
 import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 import Footer from 'components/Footer';
 import AppQuery from 'graphql/App_Query.graphql';
-import theme from 'styles/theme';
-import responsive from 'styles/responsive';
-import 'styles/global';
-
-const PageWrapper = withTheme(styled.div`
-  background: ${p => p.theme.colors.white};
-  margin: 0 auto;
-  max-width: ${p => p.theme.contentWidth}px;
-  padding: 0 ${p => p.theme.padding}px;
-`);
-
-const Content = withTheme(styled.div`
-  padding: ${p => p.theme.padding}px 0;
-  ${responsive.desktop} {
-    display: flex;
-    margin-right: ${p => p.theme.padding}px;
-  }
-`);
-
-const Primary = styled.section`${responsive.desktop} {flex: 4;}`;
-
-const Secondary = styled.section`
-  display: block;
-  min-height: 212px;
-  min-width: 212px;
-  ${responsive.desktop} {
-    flex: 1;
-  }
-`;
 
 const langCache = {};
 const getMessages = locale => {

@@ -1,22 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'emotion/react';
-import { withTheme } from 'theming';
 import { graphql } from 'react-apollo';
+import { DeleteButton as Button } from 'wp-styled-components/lib/Comments';
 import DeleteCommentMutation from 'graphql/DeleteComment_Mutation.graphql';
 import { CommentType } from '../types';
-
-const Button = withTheme(styled.button`
-  background: transparent;
-  border: 0 none;
-  color: ${p => p.theme.colors.pink};
-  cursor: pointer;
-  margin: 0 5px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`);
 
 @graphql(DeleteCommentMutation)
 export default class DeleteButton extends Component {

@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'emotion/react';
-
-const ResponsiveImage = styled.img`
-  display: block;
-  height: auto;
-  margin: 0 0 10px;
-  max-width: 100%;
-`;
+import ResponsiveImage from 'wp-styled-components/lib/Image';
 
 export default class Image extends Component {
   static propTypes = {

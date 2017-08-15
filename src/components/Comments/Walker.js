@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import { css } from 'emotion';
-import styled from 'emotion/react';
+import { ListItem, nested } from 'wp-styled-components/lib/Comments';
 import { sortHierarchy } from 'utils/walker';
 import Form from './Form';
 import Comment from './Comment';
 import { CommentConnectionType } from './types';
-
-const nested = css`margin: 20px 0 20px 20px;`;
-const ListItem = styled.li`margin: 10px 0 20px;`;
 
 export default class Walker extends Component {
   static propTypes = {

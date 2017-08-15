@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
+import { ArticleWrapper, Heading, ContentSection } from 'wp-styled-components';
 import ContentNode from 'components/ContentNode';
 import Media from 'components/Media';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import PageQuery from 'graphql/Page_Query.graphql';
 import { SITE_URL } from 'utils/constants';
-import { ArticleWrapper, Heading, ContentSection } from 'styles/components';
 
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prefer-stateless-function */

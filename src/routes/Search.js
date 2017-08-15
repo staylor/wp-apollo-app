@@ -1,29 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'emotion/react';
-import { withTheme } from 'theming';
 import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
+import debounce from 'debounce';
+import { ContentWrapper, Heading } from 'wp-styled-components';
+import { SearchBox, SearchInput, A11Y } from 'wp-styled-components/lib/Search';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import SearchQuery from 'graphql/Search_Query.graphql';
 import { SITE_URL } from 'utils/constants';
-import debounce from 'debounce';
-import { ContentWrapper, Heading } from 'styles/components';
-
-const Section = styled.section`margin-bottom: 40px;`;
-
-const SearchInput = withTheme(styled.input`
-  border: 1px solid ${p => p.theme.colors.detail};
-  display: block;
-  font-size: 16px;
-  line-height: 20px;
-  padding: 8px;
-  width: 100%;
-`);
-
-const A11Y = styled.label`display: none;`;
 
 @graphql(SearchQuery, {
   options: {
@@ -103,7 +89,7 @@ export default class Search extends Component {
         <Heading>
           {title}
         </Heading>
-        <Section>
+        <SearchBox>
           <form>
             <A11Y htmlFor="field-term">Search Term</A11Y>
             <SearchInput
@@ -118,7 +104,7 @@ export default class Search extends Component {
             />
           </form>
           {searching && <Loading />}
-        </Section>
+        </SearchBox>
         {viewer &&
           viewer.posts &&
           !loading &&

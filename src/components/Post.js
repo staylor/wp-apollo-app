@@ -1,34 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'emotion/react';
-import { withTheme } from 'theming';
 import { routerShape } from 'found/lib/PropTypes';
+import { Article, Title, Content } from 'wp-styled-components/lib/Post';
 import Media from 'components/Media';
 import ContentNode from 'components/ContentNode';
 import { dateRegex } from 'utils/regex';
 import PostLink from './PostLink';
 
 /* eslint-disable react/no-danger */
-
-const Article = withTheme(styled.article`margin: 0 0 ${p => p.theme.padding}px;`);
-
-const Title = withTheme(styled.h1`
-  font-family: ${p => p.theme.fonts.futura};
-  font-size: 18px;
-  line-height: 24px;
-  margin: 0 0 ${p => p.theme.padding}px;
-
-  & a {
-    color: ${p => p.theme.colors.subhead};
-    text-decoration: none;
-  }
-`);
-
-const Content = withTheme(styled.section`
-  & p {
-    margin: 0 0 ${p => p.theme.padding}px;
-  }
-`);
 
 export default class Post extends Component {
   static propTypes = {

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
+import { ContentWrapper, Heading } from 'wp-styled-components';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import TermQuery from 'graphql/Term_Query.graphql';
 import { SITE_URL } from 'utils/constants';
-import { ContentWrapper, Heading } from 'styles/components';
 
 @graphql(TermQuery, {
   options: ({ params: { slug, tag = null } }) => {

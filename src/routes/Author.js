@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
+import { ContentWrapper, Heading } from 'wp-styled-components';
 import Archive from 'components/Archive';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import AuthorQuery from 'graphql/Author_Query.graphql';
-import { ContentWrapper, Heading } from 'styles/components';
 
 /* eslint-disable react/prefer-stateless-function */
 

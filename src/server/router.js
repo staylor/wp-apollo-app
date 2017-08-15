@@ -2,7 +2,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { getFarceResult } from 'found/lib/server';
 import { CookiesProvider } from 'react-cookie';
-import { extractCritical } from 'emotion/server';
+import { extractCritical } from 'wp-styled-components/lib/server';
 import { ApolloClient, ApolloProvider, getDataFromTree } from 'react-apollo';
 import template from 'server/template';
 import { historyMiddlewares, render, routeConfig } from 'routes';

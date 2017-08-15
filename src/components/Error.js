@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading } from 'styles/components';
+import { Heading } from 'wp-styled-components';
 
 export default function Error() {
   return (

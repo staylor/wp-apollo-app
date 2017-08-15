@@ -1,41 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
+import { ArticleWrapper } from 'wp-styled-components';
+import { Title, List, Item, Image } from 'wp-styled-components/lib/Chart';
 import Loading from 'components/Loading';
 import Error from 'components/Error';
 import ChartQuery from 'graphql/Chart_Query.graphql';
-import styled from 'emotion/react';
-import { clear } from 'styles/global';
-import { withTheme } from 'theming';
-import { ArticleWrapper } from 'styles/components';
-
-const Title = withTheme(styled.h1`
-  font-family: ${p => p.theme.fonts.futura};
-  font-size: 36px;
-  font-weight: bold;
-  line-height: 42px;
-  margin: 0 0 10px;
-
-  & a {
-    color: ${p => p.theme.colors.dark};
-    text-decoration: none;
-  }
-`);
-
-const List = styled.ol`list-style: decimal;`;
-
-const Item = styled.li`
-  composes: ${clear};
-  display: list-item;
-  margin: 10px 0 10px 20px;
-  padding: 0 0 0 7px;
-`;
-
-const Image = styled.img`
-  display: block;
-  float: left;
-  margin: 0 10px 0 0;
-`;
 
 @graphql(ChartQuery)
 export default class Chart extends Component {

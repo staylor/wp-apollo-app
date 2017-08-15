@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
-import { css } from 'emotion';
-import styled from 'emotion/react';
-import { withTheme } from 'theming';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import md5 from 'md5';
 import { withCookies, Cookies } from 'react-cookie';
 import { intlShape } from 'react-intl';
+import {
+  CommentWrapper,
+  Meta,
+  Image,
+  Author,
+  Time,
+  Content,
+  Reply,
+  activeReply,
+  Actions,
+  EditButton,
+} from 'wp-styled-components/lib/Comments';
 import withIntl from 'decorators/withIntl';
-import { clear } from 'styles/global';
-import theme from 'styles/theme';
 import EditComment from './Edit';
 import DeleteButton from './DeleteButton';
 import { AUTHOR_EMAIL_COOKIE } from '../constants';
@@ -17,72 +24,6 @@ import { CommentType } from '../types';
 
 /* eslint-disable react/no-danger */
 /* eslint-disable react/forbid-prop-types */
-
-const Wrapper = withTheme(styled.div`
-  border-bottom: 1px solid ${p => p.theme.colors.detail};
-  position: relative;
-`);
-
-const Meta = styled.div`composes: ${clear};`;
-
-const Image = styled.img`
-  float: left;
-  margin: 0 10px 10px 0;
-`;
-
-const Content = styled.div`
-  & p {
-    font-size: 12px;
-    line-height: 15px;
-  }
-`;
-
-const Reply = styled.button`
-  background: none;
-  border: 0;
-  cursor: pointer;
-  font-size: 16px;
-  line-height: 20px;
-  padding: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  &:active,
-  &:focus {
-    outline: 0 none;
-  }
-`;
-
-const Actions = styled.div`margin: 5px 0;`;
-
-const active = css`color: ${theme.colors.pink};`;
-
-const EditButton = withTheme(styled.button`
-  background: transparent;
-  border: 1px solid ${p => p.theme.colors.detail};
-  cursor: pointer;
-  transition: 600ms;
-
-  &:hover {
-    border: 1px solid ${p => p.theme.colors.dark};
-  }
-
-  &:active,
-  &:focus {
-    outline: 0 none;
-  }
-`);
-
-const Author = withTheme(styled.span`
-  display: block;
-  text-transform: uppercase;
-
-  & a {
-    color: ${p => p.theme.colors.dark};
-  }
-`);
-const Time = styled.span`display: block;`;
 
 @withIntl
 @withCookies
@@ -169,7 +110,7 @@ export default class Comment extends Component {
     }
 
     return (
-      <Wrapper>
+      <CommentWrapper>
         <Meta>
           {avatar ? <Image alt="" src={avatar.url} /> : null}
           <Author>
@@ -181,7 +122,7 @@ export default class Comment extends Component {
         </Meta>
         {commentContent}
         <Reply
-          className={cn({ [active]: this.props.active })}
+          className={cn({ [activeReply]: this.props.active })}
           onClick={() => this.onClick(id)}
         >
           ↵
@@ -192,7 +133,7 @@ export default class Comment extends Component {
             <EditButton onClick={this.onEditClick}>Edit</EditButton>
             <DeleteButton editToken={this.editToken} comment={this.props.comment} />
           </Actions>}
-      </Wrapper>
+      </CommentWrapper>
     );
   }
 }

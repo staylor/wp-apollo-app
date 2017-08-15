@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { embed } from 'styles/components';
+import { embed } from 'wp-styled-components';
 
 export default function Embed({ node, onEmbedClick = null }) {
   const onClick = onEmbedClick ? onEmbedClick(node) : null;

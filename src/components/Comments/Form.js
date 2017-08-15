@@ -1,43 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'emotion';
-import styled from 'emotion/react';
-import { withTheme } from 'theming';
 import { withCookies, Cookies } from 'react-cookie';
 import { graphql } from 'react-apollo';
 import md5 from 'md5';
+import { SubmitButton, ResetButton, formField } from 'wp-styled-components';
+import {
+  CommentForm,
+  Field,
+  Label,
+  submit,
+  reset,
+} from 'wp-styled-components/lib/Comments';
 import { newlineRegex } from 'utils/regex';
 import AddCommentMutation from 'graphql/AddComment_Mutation.graphql';
-import { SubmitButton, ResetButton, formField } from 'styles/components';
 import { AUTHOR_NAME_COOKIE, AUTHOR_EMAIL_COOKIE, AUTHOR_URL_COOKIE } from './constants';
-
-const CommentForm = styled.form`
-  margin: 20px 0 40px;
-  width: 300px;
-`;
-
-const Field = styled.p`margin: 5px 0;`;
-
-const Label = withTheme(styled.label`
-  display: block;
-  font-family: ${p => p.theme.fonts.futura};
-  font-size: 16px;
-  line-height: 20px;
-`);
-
-const submit = css`
-  font-size: 16px;
-  line-height: 20px;
-  padding: 8px;
-  width: 80px;
-`;
-
-const reset = css`
-  font-size: 16px;
-  line-height: 20px;
-  margin: 0 10px;
-  padding: 8px;
-`;
 
 const fields = {
   authorName: { name: 'Name', cookie: AUTHOR_NAME_COOKIE },

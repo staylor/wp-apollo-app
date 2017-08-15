@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'emotion';
-import styled from 'emotion/react';
-import { withTheme } from 'theming';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import { Link } from 'found';
 import { FormattedRelative } from 'react-intl';
+import { ArticleWrapper, ContentSection } from 'wp-styled-components';
+import { iframe, Title, Meta, Tag } from 'wp-styled-components/lib/Single';
 import Error from 'components/Error';
 import Loading from 'components/Loading';
 import ContentNode from 'components/ContentNode';
@@ -16,38 +15,8 @@ import { COMMENTS_PER_PAGE } from 'components/Comments/constants';
 import SingleQuery from 'graphql/Single_Query.graphql';
 import { dateRegex } from 'utils/regex';
 import { SITE_URL } from 'utils/constants';
-import { ArticleWrapper, ContentSection } from 'styles/components';
-import responsive from 'styles/responsive';
 
 /* eslint-disable react/no-danger */
-
-const iframe = css`margin: 0 0 20px;`;
-
-const Title = withTheme(styled.h1`
-  font-family: ${p => p.theme.fonts.futura};
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 30px;
-  margin: 0 0 ${p => p.theme.padding}px;
-
-  ${responsive.tablet} {
-    font-size: 36px;
-    line-height: 42px;
-  }
-`);
-
-const Meta = withTheme(styled.div`
-  clear: both;
-  color: ${p => p.theme.colors.meta};
-  font-size: 12px;
-  line-height: 18px;
-  margin-bottom: ${p => p.theme.padding}px;
-`);
-
-const Tag = withTheme(styled(Link)`
-  display: inline-block;
-  margin: 0 0 0 ${p => p.theme.padding / 4}px;
-`);
 
 @graphql(SingleQuery, {
   options: ({ params: { slug } }) => ({

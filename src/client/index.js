@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { hydrate } from 'emotion';
+import { hydrate } from 'wp-styled-components';
 import createInitialBrowserRouter from 'found/lib/createInitialBrowserRouter';
 import { CookiesProvider } from 'react-cookie';
 import { historyMiddlewares, render, routeConfig } from 'routes';
