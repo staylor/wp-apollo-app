@@ -1,14 +1,13 @@
 {
-  "name": "wp-relay-app",
+  "name": "wp-apollo-app",
   "version": "0.0.1",
-  "description": "Headless WordPress isomorphic Relay app",
+  "description": "Headless WordPress isomorphic Apollo app",
   "main": "index.js",
   "repository": {},
   "author": "Scott Taylor <scott.c.taylor@mac.com>",
   "license": "MIT",
   "dependencies": {
     "base-64": "^0.1.0",
-    "classnames": "^2.2.5",
     "compression": "^1.7.0",
     "debounce": "^1.0.2",
     "dotenv": "^4.0.0",
@@ -33,7 +32,7 @@
     "redis": "^2.8.0",
     "serialize-javascript": "^1.4.0",
     "universal-cookie-express": "^2.0.6",
-    "wp-styled-components": "^0.0.19"
+    "wp-styled-components": "^0.0.20"
   },
   "scripts": {
     "dev": "GQL_HOST=http://localhost:8080 kyt dev",
@@ -46,7 +45,8 @@
     "lint-style": "kyt lint-style",
     "proto": "kyt proto",
     "kyt:help": "kyt --help",
-    "persist-queries": "persistgraphql src src/apollo/queries.json --add_typename"
+    "persist-queries": "persistgraphql src src/apollo/queries.json --add_typename",
+    "prettier": "prettier-eslint \"src/**/*.js\""
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
