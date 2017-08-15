@@ -8,7 +8,7 @@ import {
   TWITTER_CREATOR,
 } from 'utils/constants';
 
-export default class App extends Component {
+export default class Settings extends Component {
   static propTypes = {
     locale: PropTypes.string,
     settings: PropTypes.shape({
