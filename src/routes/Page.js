@@ -38,7 +38,7 @@ export default class Page extends Component {
     }
 
     const {
-      page: { slug, title: { rendered: title }, content: { data: content }, featuredMedia },
+      page: { slug, title: { raw: title }, content: { data: content }, featuredMedia },
     } = viewer;
     const url = `${SITE_URL}/${slug}`;
     const featuredImage = (featuredMedia && featuredMedia.sourceUrl) || null;

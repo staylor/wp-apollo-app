@@ -73,7 +73,7 @@ export default class Single extends Component {
           id,
           slug,
           date,
-          title: { rendered: title },
+          title: { raw: title },
           content: { data: content },
           excerpt: { raw: excerpt },
           featuredMedia,

@@ -7,7 +7,7 @@ query Page_Query($slug: String!) {
       id
       slug
       title {
-        rendered
+        raw
       }
       content {
         data {

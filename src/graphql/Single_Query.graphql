@@ -9,7 +9,7 @@ query Single_Query($slug: String!, $commentCount: Int) {
       slug
       date
       title {
-        rendered
+        raw
       }
       content {
         data {

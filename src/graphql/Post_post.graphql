@@ -7,7 +7,7 @@ fragment Post_post on Post {
   slug
   date
   title {
-    rendered
+    raw
   }
   content {
     data {
