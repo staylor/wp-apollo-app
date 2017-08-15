@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { routerShape } from 'found/lib/PropTypes';
 import { Article, Title, Content } from 'wp-styled-components/lib/Post';
-import Media from 'components/Media';
+import Media from 'containers/Media';
 import ContentNode from 'components/ContentNode';
 import { dateRegex } from 'utils/regex';
 import PostLink from './PostLink';
@@ -57,11 +57,7 @@ export default class Post extends Component {
             <Media media={featuredMedia} />
           </PostLink>}
         {isEmbed
-          ? <ContentNode
-              component={Content}
-              content={content}
-              onEmbedClick={this.onEmbedClick}
-            />
+          ? <ContentNode component={Content} content={content} onEmbedClick={this.onEmbedClick} />
           : <Content>
               {excerpt.raw}
             </Content>}

@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import { ArticleWrapper, Heading, ContentSection, Error, Loading } from 'wp-styled-components';
 import ContentNode from 'components/ContentNode';
-import Media from 'components/Media';
+import Media from 'containers/Media';
 import PageQuery from 'graphql/Page_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 

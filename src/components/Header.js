@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'found';
 import { Masthead, Title, Description } from 'wp-styled-components/lib/Header';
-import NavMenu from 'components/NavMenu';
+import NavMenu from 'wp-styled-components/lib/NavMenu';
 
 const Header = ({ settings, navMenu }) =>
   <Masthead role="banner">
