@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import { routerShape } from 'found/lib/PropTypes';
-import { ThemeProvider } from 'wp-styled-components/lib/App';
-import 'wp-styled-components/lib/global';
+import AppComponent from 'wp-styled-components/lib/App';
 import IntlProvider from 'decorators/IntlProvider';
 import AppQuery from 'graphql/App_Query.graphql';
-import AppComponent from 'components/App';
+import Settings from 'components/Settings';
 
 @graphql(AppQuery, {
   options: {
@@ -64,12 +63,11 @@ export default class App extends Component {
     const { data, children } = this.props;
     const { viewer: { settings, navMenu, sidebar } } = data;
 
-    return (
-      <ThemeProvider>
-        <AppComponent {...{ settings, navMenu, sidebar }}>
-          {children}
-        </AppComponent>
-      </ThemeProvider>
-    );
+    return [
+      <Settings key="settings" settings={settings} />,
+      <AppComponent key="app" {...{ settings, navMenu, sidebar }}>
+        {children}
+      </AppComponent>,
+    ];
   }
 }
