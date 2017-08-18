@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 import md5 from 'md5';
 import { withCookies, Cookies } from 'react-cookie';
 import { intlShape } from 'react-intl';
@@ -122,7 +121,7 @@ export default class Comment extends Component {
         </Meta>
         {commentContent}
         <Reply
-          className={cn({ [activeReply]: this.props.active })}
+          className={this.props.active ? activeReply : null}
           onClick={() => this.onClick(id)}
         >
           ↵

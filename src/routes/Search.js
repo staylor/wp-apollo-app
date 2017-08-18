@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import Helmet from 'react-helmet';
 import debounce from 'debounce';
-import { ContentWrapper, Heading } from 'wp-styled-components';
+import { ContentWrapper, Heading, Error, Loading } from 'wp-styled-components';
 import { SearchBox, SearchInput, A11Y } from 'wp-styled-components/lib/Search';
-import Archive from 'components/Archive';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
+import Archive from 'containers/Archive';
 import SearchQuery from 'graphql/Search_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 

@@ -1,5 +1,5 @@
 {
-  "extends": ["./node_modules/kyt/config/.eslintrc.base.json", "prettier"],
+  "extends": ["./node_modules/kyt/config/.eslintrc.base.json"],
 
   "parser": "babel-eslint",
 
@@ -11,18 +11,9 @@
 
   "env": {},
 
-  "plugins": ["prettier"],
+  "plugins": [],
 
   "rules": {
-    "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
-    "prettier/prettier": [
-      "error",
-      {
-        "trailingComma": "es5",
-        "semi": true,
-        "singleQuote": true,
-        "printWidth": 90
-      }
-    ]
+    "no-underscore-dangle": ["error", { "allow": ["__typename"] }]
   }
 }

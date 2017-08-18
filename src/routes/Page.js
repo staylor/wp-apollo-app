@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
-import { ArticleWrapper, Heading, ContentSection } from 'wp-styled-components';
+import { ArticleWrapper, Heading, ContentSection, Error, Loading } from 'wp-styled-components';
 import ContentNode from 'components/ContentNode';
-import Media from 'components/Media';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
+import Media from 'containers/Media';
 import PageQuery from 'graphql/Page_Query.graphql';
 import { SITE_URL } from 'utils/constants';
 
@@ -40,12 +38,7 @@ export default class Page extends Component {
     }
 
     const {
-      page: {
-        slug,
-        title: { rendered: title },
-        content: { data: content },
-        featuredMedia,
-      },
+      page: { slug, title: { raw: title }, content: { data: content }, featuredMedia },
     } = viewer;
     const url = `${SITE_URL}/${slug}`;
     const featuredImage = (featuredMedia && featuredMedia.sourceUrl) || null;

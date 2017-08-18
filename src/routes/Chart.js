@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import { ArticleWrapper } from 'wp-styled-components';
-import { Title, List, Item, Image } from 'wp-styled-components/lib/Chart';
-import Loading from 'components/Loading';
-import Error from 'components/Error';
+import { Title, List, Item, Image, Error, Loading } from 'wp-styled-components/lib/Chart';
 import ChartQuery from 'graphql/Chart_Query.graphql';
 
 @graphql(ChartQuery)

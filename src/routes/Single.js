@@ -4,12 +4,10 @@ import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import { Link } from 'found';
 import { FormattedRelative } from 'react-intl';
-import { ArticleWrapper, ContentSection } from 'wp-styled-components';
+import { ArticleWrapper, ContentSection, Error, Loading } from 'wp-styled-components';
 import { iframe, Title, Meta, Tag } from 'wp-styled-components/lib/Single';
-import Error from 'components/Error';
-import Loading from 'components/Loading';
 import ContentNode from 'components/ContentNode';
-import Media from 'components/Media';
+import Media from 'containers/Media';
 import Comments from 'components/Comments';
 import { COMMENTS_PER_PAGE } from 'components/Comments/constants';
 import SingleQuery from 'graphql/Single_Query.graphql';
@@ -75,7 +73,7 @@ export default class Single extends Component {
           id,
           slug,
           date,
-          title: { rendered: title },
+          title: { raw: title },
           content: { data: content },
           excerpt: { raw: excerpt },
           featuredMedia,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'found';
 import { dateRegex } from 'utils/regex';
 
-const PostLink = ({ children, post: { slug, date, title: { rendered: title } } }) => {
+const PostLink = ({ children, post: { slug, date, title } }) => {
   const [, year, month, day] = dateRegex.exec(date);
   const url = `/${year}/${month}/${day}/${slug}`;
   if (children) {
@@ -13,7 +13,11 @@ const PostLink = ({ children, post: { slug, date, title: { rendered: title } } }
       </Link>
     );
   }
-  return <Link to={url} dangerouslySetInnerHTML={{ __html: title }} />;
+  return (
+    <Link to={url}>
+      {title.raw}
+    </Link>
+  );
 };
 
 PostLink.propTypes = {

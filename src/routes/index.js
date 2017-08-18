@@ -17,9 +17,7 @@ export const historyMiddlewares = [queryMiddleware];
 export const routeConfig = makeRouteConfig(
   <Route
     path="/"
-    getComponent={getComponent(() =>
-      /* webpackChunkName: "app" */ import('../components/App')
-    )}
+    getComponent={getComponent(() => /* webpackChunkName: "app" */ import('../containers/App'))}
   >
     <Route
       path=":category(music)/:slug"
@@ -30,10 +28,8 @@ export const routeConfig = makeRouteConfig(
       getComponent={getComponent(() => /* webpackChunkName: "term" */ import('./Term'))}
     />
     <Route
-      path=":year(\d+)/:month(\d+)/:day(\d+)/:slug"
-      getComponent={getComponent(() =>
-        /* webpackChunkName: "single" */ import('./Single')
-      )}
+      path=":year(\d{4})/:month(\d{2})/:day(\d{2})/:slug"
+      getComponent={getComponent(() => /* webpackChunkName: "single" */ import('./Single'))}
     />
     <Route
       path=":year(\d{4})/:month(\d{2})?/:day(\d{2})?"
@@ -41,9 +37,7 @@ export const routeConfig = makeRouteConfig(
     />
     <Route
       path="search"
-      getComponent={getComponent(() =>
-        /* webpackChunkName: "search" */ import('./Search')
-      )}
+      getComponent={getComponent(() => /* webpackChunkName: "search" */ import('./Search'))}
     />
     <Route
       path="charts"
@@ -53,9 +47,7 @@ export const routeConfig = makeRouteConfig(
       path=":slug"
       getComponent={getComponent(() => /* webpackChunkName: "page" */ import('./Page'))}
     />
-    <Route
-      getComponent={getComponent(() => /* webpackChunkName: "home" */ import('./Home'))}
-    />
+    <Route getComponent={getComponent(() => /* webpackChunkName: "home" */ import('./Home'))} />
   </Route>
 );
 
