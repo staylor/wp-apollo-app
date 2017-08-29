@@ -37,10 +37,7 @@ export default class Edit extends Component {
           value={this.state.content}
           onChange={this.onChange}
         />
-        <SubmitButton
-          content={this.state.content}
-          {...{ comment, token, onEditSubmit }}
-        />
+        <SubmitButton content={this.state.content} {...{ comment, token, onEditSubmit }} />
         <EditCancelButton type="reset" onClick={this.props.onEditSubmit}>
           Cancel
         </EditCancelButton>

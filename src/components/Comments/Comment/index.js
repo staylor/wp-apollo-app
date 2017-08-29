@@ -120,10 +120,7 @@ export default class Comment extends Component {
           </Time>
         </Meta>
         {commentContent}
-        <Reply
-          className={this.props.active ? activeReply : null}
-          onClick={() => this.onClick(id)}
-        >
+        <Reply className={this.props.active ? activeReply : null} onClick={() => this.onClick(id)}>
           ↵
         </Reply>
         {this.viewerOwns() &&

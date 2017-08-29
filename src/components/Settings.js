@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { intlShape } from 'react-intl';
 import withIntl from 'decorators/withIntl';
-import {
-  SITE_URL,
-  SITE_DESCRIPTION,
-  TWITTER_USERNAME,
-  TWITTER_CREATOR,
-} from 'utils/constants';
+import { SITE_URL, SITE_DESCRIPTION, TWITTER_USERNAME, TWITTER_CREATOR } from 'utils/constants';
 
 @withIntl
 export default class Settings extends Component {

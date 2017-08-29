@@ -4,13 +4,7 @@ import { withCookies, Cookies } from 'react-cookie';
 import { graphql } from 'react-apollo';
 import md5 from 'md5';
 import { SubmitButton, ResetButton, formField } from 'wp-styled-components';
-import {
-  CommentForm,
-  Field,
-  Label,
-  submit,
-  reset,
-} from 'wp-styled-components/lib/Comments';
+import { CommentForm, Field, Label, submit, reset } from 'wp-styled-components/lib/Comments';
 import { newlineRegex } from 'utils/regex';
 import AddCommentMutation from 'graphql/AddComment_Mutation.graphql';
 import { AUTHOR_NAME_COOKIE, AUTHOR_EMAIL_COOKIE, AUTHOR_URL_COOKIE } from './constants';
@@ -96,9 +90,7 @@ export default class Form extends Component {
             {
               __typename: 'Avatar',
               size: 48,
-              url: `http://2.gravatar.com/avatar/${md5(
-                variables.input.authorEmail
-              )}?s=48&d=mm&r=g`,
+              url: `http://2.gravatar.com/avatar/${md5(variables.input.authorEmail)}?s=48&d=mm&r=g`,
             },
           ],
           post: this.context.postId,

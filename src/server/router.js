@@ -9,12 +9,10 @@ import { historyMiddlewares, render, routeConfig } from 'routes';
 import networkInterface from 'apollo/networkInterface';
 import fragmentMatcher from 'apollo/fragmentMatcher';
 
-export default ({
-  manifestJSBundle,
-  mainJSBundle,
-  vendorJSBundle,
-  mainCSSBundle,
-}) => async (req, res) => {
+export default ({ manifestJSBundle, mainJSBundle, vendorJSBundle, mainCSSBundle }) => async (
+  req,
+  res
+) => {
   try {
     const { redirect, element } = await getFarceResult({
       url: req.url,

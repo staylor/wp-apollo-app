@@ -29,9 +29,7 @@ ${helmet.title.toString()}
 <link rel="apple-touch-icon" sizes="152x152" href="/icons/152x152.png" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/gigpress.css" />
-${mainCSSBundle
-    ? `<link rel="stylesheet" type="text/css" href="${mainCSSBundle}" />`
-    : ''}
+${mainCSSBundle ? `<link rel="stylesheet" type="text/css" href="${mainCSSBundle}" />` : ''}
 ${css && `<style>${css}</style>`}
 ${helmet.meta.toString()}${helmet.link.toString()}${helmet.script.toString()}
 </head>
@@ -44,9 +42,7 @@ ${helmet.meta.toString()}${helmet.link.toString()}${helmet.script.toString()}
 ${manifestJSBundle ? `<script defer src="${manifestJSBundle}"></script>` : ''}
 ${vendorJSBundle ? `<script defer src="${vendorJSBundle}"></script>` : ''}
 ${mainJSBundle ? `<script defer src="${mainJSBundle}"></script>` : ''}
-${process.env.NODE_ENV === 'development'
-    ? `<script src="/js/tota11y.min.js"></script>`
-    : ''}
+${process.env.NODE_ENV === 'development' ? `<script src="/js/tota11y.min.js"></script>` : ''}
 </body>
 </html>`;
 };
