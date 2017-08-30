@@ -162,10 +162,8 @@ export default class Form extends Component {
           const cookieVal = cookies.get(fields[field].cookie);
           return (
             <Field key={field}>
-              <Label htmlFor={`field-${field}`}>
-                {fields[field].name}:
-              </Label>
-              {cookieVal ||
+              <Label htmlFor={`field-${field}`}>{fields[field].name}:</Label>
+              {cookieVal || (
                 <input
                   className={formField}
                   type="text"
@@ -173,7 +171,8 @@ export default class Form extends Component {
                   name={field}
                   value={this.state.comment[field]}
                   onChange={this.onChange}
-                />}
+                />
+              )}
             </Field>
           );
         })}
@@ -191,11 +190,11 @@ export default class Form extends Component {
         <SubmitButton className={submit} type="submit" onClick={this.onClick}>
           Submit
         </SubmitButton>
-        {this.props.replyTo
-          ? <ResetButton className={reset} type="reset" onClick={this.onCancel}>
-              Cancel
-            </ResetButton>
-          : null}
+        {this.props.replyTo ? (
+          <ResetButton className={reset} type="reset" onClick={this.onCancel}>
+            Cancel
+          </ResetButton>
+        ) : null}
       </CommentForm>
     );
   }

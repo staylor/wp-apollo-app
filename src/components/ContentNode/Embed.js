@@ -9,9 +9,7 @@ export default function Embed({ node, onEmbedClick = null }) {
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
     <figure onClick={onClick} className={embed}>
       <img src={thumbnailUrl} alt={node.title} />
-      <figcaption>
-        {node.title}
-      </figcaption>
+      <figcaption>{node.title}</figcaption>
     </figure>
   );
 }

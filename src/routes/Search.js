@@ -84,9 +84,7 @@ export default class Search extends Component {
           <title>Search Results</title>
           <link rel="canonical" href={`${SITE_URL}/search`} />
         </Helmet>
-        <Heading>
-          {title}
-        </Heading>
+        <Heading>{title}</Heading>
         <SearchBox>
           <form>
             <A11Y htmlFor="field-term">Search Term</A11Y>
@@ -104,9 +102,8 @@ export default class Search extends Component {
           {searching && <Loading />}
         </SearchBox>
         {viewer &&
-          viewer.posts &&
-          !loading &&
-          <Archive {...{ variables, posts: viewer.posts, fetchMore }} />}
+        viewer.posts &&
+        !loading && <Archive {...{ variables, posts: viewer.posts, fetchMore }} />}
       </ContentWrapper>
     );
   }

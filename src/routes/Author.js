@@ -38,9 +38,7 @@ export default class Author extends Component {
     const { variables, fetchMore, viewer: { author, posts } } = this.props.data;
     return (
       <ContentWrapper>
-        <Heading>
-          {author.name}
-        </Heading>
+        <Heading>{author.name}</Heading>
         <Archive {...{ posts, fetchMore, variables }} />
       </ContentWrapper>
     );

@@ -46,9 +46,7 @@ export default class Page extends Component {
     return (
       <ArticleWrapper>
         <Helmet>
-          <title>
-            {title}
-          </title>
+          <title>{title}</title>
           <link rel="canonical" href={url} />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={title} />

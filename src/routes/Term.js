@@ -50,16 +50,12 @@ export default class Term extends Component {
     return (
       <ContentWrapper>
         <Helmet>
-          <title>
-            {title}
-          </title>
+          <title>{title}</title>
           <link rel="canonical" href={url} />
           <meta property="og:title" content={title} />
           <meta property="og:url" content={url} />
         </Helmet>
-        <Heading>
-          {title}
-        </Heading>
+        <Heading>{title}</Heading>
         <Archive {...{ posts, fetchMore, variables }} />
       </ContentWrapper>
     );

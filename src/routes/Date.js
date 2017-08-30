@@ -55,14 +55,10 @@ export default class DateRoute extends Component {
     return (
       <ContentWrapper>
         <Helmet>
-          <title>
-            {title}
-          </title>
+          <title>{title}</title>
           <link rel="canonical" href={`${SITE_URL}/${path}`} />
         </Helmet>
-        <Heading>
-          {title}
-        </Heading>
+        <Heading>{title}</Heading>
         <Archive {...{ posts, fetchMore, variables }} />
       </ContentWrapper>
     );

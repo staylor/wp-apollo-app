@@ -34,9 +34,7 @@ export default ({ manifestJSBundle, mainJSBundle, vendorJSBundle, mainCSSBundle 
 
     const app = (
       <ApolloProvider client={client}>
-        <CookiesProvider cookies={req.universalCookies}>
-          {element}
-        </CookiesProvider>
+        <CookiesProvider cookies={req.universalCookies}>{element}</CookiesProvider>
       </ApolloProvider>
     );
 

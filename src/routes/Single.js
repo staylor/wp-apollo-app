@@ -90,9 +90,7 @@ export default class Single extends Component {
     return (
       <ArticleWrapper>
         <Helmet>
-          <title>
-            {title}
-          </title>
+          <title>{title}</title>
           <link rel="canonical" href={url} />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={title} />
@@ -121,15 +119,16 @@ export default class Single extends Component {
           content={content}
           onEmbedClick={this.onEmbedClick}
         />
-        {tags &&
+        {tags && (
           <footer>
             Tags:{' '}
-            {tags.map(tag =>
+            {tags.map(tag => (
               <Tag key={tag.id} to={`/tag/${tag.slug}`}>
                 {tag.name}
               </Tag>
-            )}
-          </footer>}
+            ))}
+          </footer>
+        )}
         <Comments post={{ id, slug }} comments={comments} />
       </ArticleWrapper>
     );

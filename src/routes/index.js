@@ -6,11 +6,13 @@ import Route from 'found/lib/Route';
 import 'isomorphic-fetch';
 
 const getComponent = loader => (location, cb) =>
-  loader().then(module => module.default).catch(error => {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    cb(error, null);
-  });
+  loader()
+    .then(module => module.default)
+    .catch(error => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+      cb(error, null);
+    });
 
 export const historyMiddlewares = [queryMiddleware];
 
