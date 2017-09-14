@@ -102,8 +102,8 @@ export default class Search extends Component {
           {searching && <Loading />}
         </SearchBox>
         {viewer &&
-        viewer.posts &&
-        !loading && <Archive {...{ variables, posts: viewer.posts, fetchMore }} />}
+          viewer.posts &&
+          !loading && <Archive {...{ variables, posts: viewer.posts, fetchMore }} />}
       </ContentWrapper>
     );
   }

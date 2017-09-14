@@ -116,12 +116,12 @@ export default class Comment extends Component {
           ↵
         </Reply>
         {this.viewerOwns() &&
-        !this.state.editing && (
-          <Actions>
-            <EditButton onClick={this.onEditClick}>Edit</EditButton>
-            <DeleteButton editToken={this.editToken} comment={this.props.comment} />
-          </Actions>
-        )}
+          !this.state.editing && (
+            <Actions>
+              <EditButton onClick={this.onEditClick}>Edit</EditButton>
+              <DeleteButton editToken={this.editToken} comment={this.props.comment} />
+            </Actions>
+          )}
       </CommentWrapper>
     );
   }
