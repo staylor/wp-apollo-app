@@ -1,7 +1,7 @@
 {
-  "name": "wp-relay-app",
+  "name": "wp-apollo-app",
   "version": "0.0.1",
-  "description": "Headless WordPress isomorphic Relay app",
+  "description": "Headless WordPress isomorphic Apollo app",
   "main": "index.js",
   "repository": {},
   "author": "Scott Taylor <scott.c.taylor@mac.com>",
@@ -21,8 +21,8 @@
     "kyt": "^0.8.0",
     "md5": "^2.2.1",
     "morgan": "^1.8.2",
-    "path-to-regexp": "^2.0.0",
-    "persistgraphql": "^0.3.7",
+    "path-to-regexp": "1.7.0",
+    "persistgraphql": "^0.3.8",
     "prop-types": "^15.5.10",
     "react": "next",
     "react-apollo": "^1.4.15",
@@ -33,7 +33,7 @@
     "redis": "^2.8.0",
     "serialize-javascript": "^1.4.0",
     "universal-cookie-express": "^2.1.0",
-    "wp-styled-components": "^0.0.34"
+    "wp-styled-components": "^0.0.37"
   },
   "scripts": {
     "dev": "GQL_HOST=http://localhost:8080 kyt dev",
@@ -60,18 +60,18 @@
     "babel-preset-stage-0": "^6.24.1",
     "bluebird": "^3.5.0",
     "enzyme": "^2.9.1",
-    "eslint": "^4.6.1",
+    "eslint": "^4.7.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-kyt": "^0.4.0",
-    "eslint-config-prettier": "^2.4.0",
+    "eslint-config-prettier": "^2.5.0",
     "eslint-import-resolver-babel-module": "^3.0.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-prettier": "^2.2.0",
+    "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.3.0",
     "prettier": "^1.7.0",
-    "prettier-eslint": "^8.1.0",
+    "prettier-eslint": "^8.1.1",
     "prettier-eslint-cli": "^4.3.2",
     "react-test-renderer": "16.0.0-beta.5"
   }
