@@ -1,7 +1,0 @@
-fragment PostLink_post on Post {
-  slug
-  date
-  title {
-    raw
-  }
-}
